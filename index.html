@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+      <link rel="stylesheet" type="text/css" href="styles/base.css" />
+      <link href="https://fonts.googleapis.com/css?family=Encode+Sans+Semi+Condensed|Lora" rel="stylesheet">
+        <title>Crop Swap</title>
+    </head>
+    <header class = "header">
+        <ul>
+          <img src="images/CropSwap_v1.png" class="logo"/>
+          <a href="profile.html"><li>My Profile</li></a>
+          <a href="swap.html"><li>Swap</li></a>
+        </ul>
+    </header>
+    <body>
+      <img src="images/indexBackground.jpg" class="index-photo" />
+      <h1 class =quote> Sharing is Caring</h1>
+
+      <p class = "welcome-page"> Welcome to Crop Swap.<br> Your kitchen and your neighbor's backyard
+        are now one in the same.</p><br>
+      <div class="what-to-do">
+      <p class = "welcomepage"> It's simple...</p>
+      <ul id="welcome-list">
+        <li> Create an account below</li><br>
+        <li> Find the location in your <a href = "swap.html"> neighborhood </a></li><br>
+        <li> Add what food you're planning to bring in your <a href = "profile.html">profile</a></li><br>
+        <li> Then come with your excess food, ready to swap for other peoples food</li>
+      </ul>
+      </div>
+
+      <div class="white-box" id="profile-forms">
+        <form id="login-user" name="login_user">
+          <label> Username:
+            <input input type = "text" name= "Username" maxLength="20"/>
+          </label><br><br>
+          <label> Password:
+            <input input type = "password" name= "Password" maxlength="20"/><br><br>
+          </label>
+          <input id="existingUser" input type = "button" value = "Login" onclick = "loginUser()"/>
+          </form>
+        <input id="new-user" type="button" value="Join Now!" onclick ="createAccountForm()"/>
+      </div>
+
+      <script type= "text/javascript" src = "scripts/app.js"></script>
+      </body>
+</html>
