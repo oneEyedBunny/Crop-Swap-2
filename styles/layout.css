@@ -1,0 +1,12 @@
+#profile-photo {
+    opacity: .35;
+    min-width: 100vw;
+    min-height:100vh;
+    position: fixed;
+    top:130px;
+    z-index: -1;
+}
+
+#list-of-produce {
+    text-align: center;
+}

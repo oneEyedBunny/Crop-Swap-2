@@ -1,2 +1,10 @@
 @import "layout.css";
 @import "modules.css";
+
+header {
+    font-family: "Lora","open sans","HelveticaNeue-Light","Helvetica Neue Light","Helvetica Neue",Helvetica,Arial,"Lucida Grande",sans-serif;
+}
+
+#profile {
+    background: url(profile-background.jpg);
+}

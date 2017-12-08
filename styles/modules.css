@@ -1,0 +1,74 @@
+
+/* ////////////      CROP FORM      //////// */
+form {
+    width: 45%;
+    margin: 10% auto; 
+    margin-left: 40%; 
+}
+
+form label {
+    display: inline-block;
+    width: 50%;
+    font-size: 1.25em;
+    padding: 2%;
+}
+
+legend {
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.563em;
+}
+
+form input[type="text"] {
+    font-size: 1.25em;
+    width: 35%;
+    display: inline-block
+}
+
+form input[type="submit"] {
+    width:30%;
+}
+
+#submit {
+    text-align: center;
+    margin-top: 5%;
+}
+
+form fieldset {
+    border-radius: 5px;
+}
+
+h1 {
+    text-align: center;
+}
+
+/* ///////////     HEADER      /////////////////// */
+
+.header {
+    position: fixed;
+    height: 130px;
+    top: 0px;
+    width: 100%;
+    background-color: rgba(255,255,255,0.90);
+    z-index: 1;
+  }
+
+header ul {
+    height: 0px;
+    text-align: right;
+    margin-right: 60px;
+}
+
+header li {
+    display: inline-block;
+    text-shadow: 2px;
+    font-size: 20px;
+    margin: 10px;
+    padding: 4px;
+}
+
+header li:hover {
+  opacity: 1;
+  transition: all 0.25s;
+  color: #564E58;
+}
