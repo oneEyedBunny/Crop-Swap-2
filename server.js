@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 const pg = require('pg');
 const fs = require('fs');
@@ -13,6 +13,40 @@ client.on('error', function(error) {
   console.error(error);
 });
 
+function loadUsers() {
+    client.query('SELECT COUNT (*) FROM users')
+    .then(function(result) {
+        if(!parseInt(results.rows[0].count)) {
+            fs.readFile('data/users.json', function(err, fd) {
+                JSON.parse(fd.toString()).forEach(function(ele) {
+                    client.query(
+                    `INSERT INTO
+                    users (first_name, last_name, neighborhood, user_name, password)
+                    VALUES (jimmy, john, PSU, johnjohn, PSU123) ON CONFLICT DO NOTHING,
+                    VALUES (nick, hoszko, northeast, hoszie, nojiri123) ON CONFLICT DO NOTHING`,
+                    )
+                })
+            })
+        }
+    })
+}
+
+function swap_history() {
+    client.query('SELECT COUNT (*) FROM swap_history')
+    .then(function(result) {
+        if(!parseInt(results.rows[0].count)) {
+            fs.readFile('data/swap_history.json', function(err, fd) {
+                JSON.parse(fd.toString()).forEach(function(ele) {
+                    client.query(
+                    `INSERT INTO
+                    swap_history (user_id_seller, user_id_buyer, crop_name, crop_price, quantity_reserved, seller_rating)
+                    VALUES (hoszie, johnjohn, carrots, 1, 4, 5) ON CONFLICT DO NOTHING`,
+                    )
+                })
+            })
+        }
+    })
+}
 
 function loadDB() {
     client.query (`
