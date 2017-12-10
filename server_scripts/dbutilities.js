@@ -1,9 +1,11 @@
 module.exports = {
   loadDB: function(client) {
+      client.query (`DROP SCHEMA IF EXISTS public CASCADE`);
+      client.query (`CREATE SCHEMA public`);
       client.query (`
           CREATE TABLE IF NOT EXISTS neighborhood (
               neighborhood_id SERIAL PRIMARY KEY,
-              name TEXT,
+              neighborhood_name TEXT,
               address TEXT,
               swap_day TEXT,
               swap_time TEXT);`
@@ -17,7 +19,7 @@ module.exports = {
               user_id SERIAL PRIMARY KEY,
               first_name TEXT,
               last_name TEXT,
-              neighborhood TEXT,
+              neighborhood_id INTEGER NOT NULL REFERENCES neighborhood(neighborhood_id),
               user_name TEXT,
               password TEXT);`
           )
@@ -28,7 +30,7 @@ module.exports = {
       client.query (`
           CREATE TABLE IF NOT EXISTS crops (
               crop_id SERIAL PRIMARY KEY,
-              user_id TEXT,
+              user_id INTEGER NOT NULL REFERENCES users(user_id),
               crop_name TEXT,
               quantity_available INTEGER,
               quantity_reserved INTEGER,
@@ -71,21 +73,21 @@ module.exports = {
     })
   },
 
-  loadNeighborhood: function() {
+  loadNeighborhood: function(client) {
     client.query('SELECT COUNT(*) FROM neighborhood')
     .then(function(result) {
       if(!parseInt(result.rows[0].count)) {
-        fs.readFile('data/neighborhood.json', function(error, fd) {
-          JSON.parse(fd.toString()).forEach(function(element) {
+        // fs.readFile('data/neighborhood.json', function(error, fd) {
+        //   JSON.parse(fd.toString()).forEach(function(element) {
             client.query(
               `INSERT INTO
-              neighborhood(name, address, swap_day, swap_time)
-              VALUES ('Sellwood', '8300 SE 15th Ave, Portland, OR 97202', 'Saturday', '2:00pm')
-              VALUES (PSU, '1825 SW Broadway, Portland, OR 97201', 'Sunday', '1:00pm')
+              neighborhood (neighborhood_name, address, swap_day, swap_time)
+              VALUES ('Sellwood', '8300 SE 15th Ave, Portland, OR 97202', 'Saturday', '2:00pm'),
+             ('PSU', '1825 SW Broadway, Portland, OR 97201', 'Sunday', '1:00pm')
               ON CONFLICT DO NOTHING`
             )
-          })
-        })
+        //   })
+        // })
       }
     })
   },
@@ -93,16 +95,16 @@ module.exports = {
       client.query('SELECT COUNT (*) FROM users')
       .then(function(result) {
           if(!parseInt(results.rows[0].count)) {
-              fs.readFile('data/users.json', function(err, fd) {
-                  JSON.parse(fd.toString()).forEach(function(ele) {
+              // fs.readFile('data/users.json', function(err, fd) {
+              //     JSON.parse(fd.toString()).forEach(function(ele) {
                       client.query(
                       `INSERT INTO
                       users (first_name, last_name, neighborhood, user_name, password)
-                      VALUES (jimmy, john, PSU, johnjohn, PSU123) ON CONFLICT DO NOTHING,
-                      VALUES (nick, hoszko, northeast, hoszie, nojiri123) ON CONFLICT DO NOTHING`
+                      VALUES ('jimmy', 'john', 'PSU', 'johnjohn', 'PSU123') ON CONFLICT DO NOTHING,
+                      ('nick', 'hoszko', 'northeast', 'hoszie', 'nojiri123') ON CONFLICT DO NOTHING`
                       )
-                  })
-              })
+              //     })
+              // })
           }
       })
   },
@@ -111,15 +113,15 @@ module.exports = {
       client.query('SELECT COUNT (*) FROM swap_history')
       .then(function(result) {
           if(!parseInt(results.rows[0].count)) {
-              fs.readFile('data/swap_history.json', function(err, fd) {
-                  JSON.parse(fd.toString()).forEach(function(ele) {
+              // fs.readFile('data/swap_history.json', function(err, fd) {
+              //     JSON.parse(fd.toString()).forEach(function(ele) {
                       client.query(
                       `INSERT INTO
                       swap_history (user_id_seller, user_id_buyer, crop_name, crop_price, quantity_reserved, seller_rating)
-                      VALUES (hoszie, johnjohn, carrots, 1, 4, 5) ON CONFLICT DO NOTHING`
+                      VALUES ('hoszie', 'johnjohn', 'carrots', 1.50, 4, 5) ON CONFLICT DO NOTHING`
                       )
-                  })
-              })
+              //     })
+              // })
           }
       })
   }
