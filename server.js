@@ -4,14 +4,17 @@ const pg = require('pg');
 const fs = require('fs');
 const express = require('express');
 const bodyParser = require('body-parser');
+const connection = require('./scripts/dbconnection.js');
 const PORT = process.env.PORT || 3000;
 const app = express();
-const conString = 'postgres://nickhoszko@localhost:5432/nickhoszko';
-const client = new pg.Client(conString);
+// const conString = 'postgres://nickhoszko@localhost:5432/nickhoszko';
+const client = new pg.Client(connection.conString);
 client.connect();
 client.on('error', function(error) {
   console.error(error);
 });
+
+loadDB();
 
 function loadUsers() {
     client.query('SELECT COUNT (*) FROM users')
@@ -23,7 +26,7 @@ function loadUsers() {
                     `INSERT INTO
                     users (first_name, last_name, neighborhood, user_name, password)
                     VALUES (jimmy, john, PSU, johnjohn, PSU123) ON CONFLICT DO NOTHING,
-                    VALUES (nick, hoszko, northeast, hoszie, nojiri123) ON CONFLICT DO NOTHING`,
+                    VALUES (nick, hoszko, northeast, hoszie, nojiri123) ON CONFLICT DO NOTHING`
                     )
                 })
             })
@@ -40,7 +43,7 @@ function swap_history() {
                     client.query(
                     `INSERT INTO
                     swap_history (user_id_seller, user_id_buyer, crop_name, crop_price, quantity_reserved, seller_rating)
-                    VALUES (hoszie, johnjohn, carrots, 1, 4, 5) ON CONFLICT DO NOTHING`,
+                    VALUES (hoszie, johnjohn, carrots, 1, 4, 5) ON CONFLICT DO NOTHING`
                     )
                 })
             })
@@ -112,7 +115,7 @@ function loadCrops() {
             `INSERT INTO
             crops(user_id, crop_name, quantity_available, quantity_reserved, crop_price)
             VALUES ('hoszie', 'carrots', 10, 4, 1) ON CONFLICT DO NOTHING,
-            VALUES ('sandraul', 'kale', 8, 2, 2) ON CONFLICT DO NOTHING`,
+            VALUES ('sandraul', 'kale', 8, 2, 2) ON CONFLICT DO NOTHING`
           )
         })
       })
@@ -120,7 +123,7 @@ function loadCrops() {
   })
 }
 
-function loadNeiborhood() {
+function loadNeighborhood() {
   client.query('SELECT COUNT(*) FROM neighborhood')
   .then(function(result) {
     if(!parseInt(result.rows[0].count)) {
@@ -131,7 +134,7 @@ function loadNeiborhood() {
             neighborhood(name, address, swap_day, swap_time)
             VALUES ('Sellwood', '8300 SE 15th Ave, Portland, OR 97202', 'Saturday', '2:00pm')
             VALUES (PSU, '1825 SW Broadway, Portland, OR 97201', 'Sunday', '1:00pm')
-            ON CONFLICT DO NOTHING`,
+            ON CONFLICT DO NOTHING`
           )
         })
       })
