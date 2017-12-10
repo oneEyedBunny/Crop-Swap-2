@@ -16,3 +16,41 @@ client.on('error', function(error) {
 });
 
 dbutilities.loadDB(client);
+
+// Base route for serving up HTML
+app.get('/', function(request, response) {
+  response.sendFile('./index.html')
+})
+
+// DB routes for CRUD operations
+app.get('neighborhoods', function(request, response) {
+  client.query('SELECT * FROM neighborhood;')
+  .then(function(data) {
+    response.send(data)
+  })
+  .catch(function(err) {
+    console.error(err)
+  })
+})
+
+app.post('user', function(request, response) {
+  client.query(`
+    INSERT INTO users(first_name, last_name, neighborhood, user_name, password)
+    VALUES($1, $2, $3, $4, $5);
+    `,
+    [
+      request.body.first_name,
+      request.body.last_name,
+      request.body.neighborhood,
+      request.body.user_name,
+      request.body.password,
+    ]
+  )
+  .then(function(data) {
+    response.redirect('/')
+  })
+  .catch(function(err) {
+    console.error(err)
+  })
+})
+
