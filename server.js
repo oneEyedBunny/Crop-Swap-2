@@ -4,8 +4,8 @@ const pg = require('pg');
 const fs = require('fs');
 const express = require('express');
 const bodyParser = require('body-parser');
-const connection= require('./scripts/dbconnection.js');
-const dbutilities= require('./scripts/dbutilities.js');
+const connection= require('./server_scripts/dbconnection.js');
+const dbutilities= require('./server_scripts/dbutilities.js');
 const PORT = process.env.PORT || 3000;
 const app = express();
 //const conString = 'postgres://nickhoszko@localhost:5432/nickhoszko';
@@ -15,16 +15,18 @@ client.on('error', function(error) {
   console.error(error);
 });
 
-app.listen(PORT, function(){
+app.listen(PORT, function() {
   console.log(`Listening on port: ${PORT}`);
 });
 
 dbutilities.loadDB(client);
 
+app.use( express.static('./public') );
+
 // Base route for serving up HTML
 app.get('/', function(request, response) {
-  response.sendFile('./index.html')
-})
+  response.sendFile('public/index.html')
+});
 
 // DB routes for CRUD operations
 app.get('neighborhoods', function(request, response) {
