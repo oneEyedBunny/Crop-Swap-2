@@ -1,5 +1,5 @@
 module.exports = {
-  loadDB: function() {
+  loadDB: function(client) {
       client.query (`
           CREATE TABLE IF NOT EXISTS neighborhood (
               neighborhood_id SERIAL PRIMARY KEY,
@@ -51,7 +51,7 @@ module.exports = {
           .catch(function(error) {
               console.error(error);
           });
-  }
+  },
 
   loadCrops: function() {
     client.query('SELECT COUNT(*) FROM crops')
@@ -69,7 +69,7 @@ module.exports = {
         })
       }
     })
-  }
+  },
 
   loadNeighborhood: function() {
     client.query('SELECT COUNT(*) FROM neighborhood')
@@ -88,7 +88,7 @@ module.exports = {
         })
       }
     })
-  }
+  },
   loadUsers: function() {
       client.query('SELECT COUNT (*) FROM users')
       .then(function(result) {
@@ -105,14 +105,14 @@ module.exports = {
               })
           }
       })
-  }
+  },
 
   swap_history: function() {
       client.query('SELECT COUNT (*) FROM swap_history')
       .then(function(result) {
           if(!parseInt(results.rows[0].count)) {
               fs.readFile('data/swap_history.json', function(err, fd) {
-          d        JSON.parse(fd.toString()).forEach(function(ele) {
+                  JSON.parse(fd.toString()).forEach(function(ele) {
                       client.query(
                       `INSERT INTO
                       swap_history (user_id_seller, user_id_buyer, crop_name, crop_price, quantity_reserved, seller_rating)
