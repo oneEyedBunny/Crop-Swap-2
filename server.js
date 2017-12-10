@@ -15,6 +15,10 @@ client.on('error', function(error) {
   console.error(error);
 });
 
+app.listen(PORT, function(){
+  console.log(`Listening on port: ${PORT}`);
+});
+
 dbutilities.loadDB(client);
 
 // Base route for serving up HTML
@@ -32,6 +36,19 @@ app.get('neighborhoods', function(request, response) {
     console.error(err)
   })
 })
+
+app.get('user', function(request, response) {
+  client.query('SELECT * FROM users;')
+  .then(function(data) {
+    response.send(data)
+  })
+  .catch(function(err) {
+    console.error(err)
+  })
+})
+
+
+
 
 app.post('user', function(request, response) {
   client.query(`
@@ -53,4 +70,3 @@ app.post('user', function(request, response) {
     console.error(err)
   })
 })
-
