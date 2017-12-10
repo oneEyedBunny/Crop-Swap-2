@@ -1,0 +1,277 @@
+/* ///////////     HEADER      /////////////////// */
+
+.header {
+  position: fixed;
+  height: 130px;
+  top: 0px;
+  width: 100%;
+  background-color: rgba(255,255,255,0.90);
+  z-index: 1;
+}
+
+header ul {
+  height: 0px;
+  text-align: right;
+  margin-right: 60px;
+}
+
+header li {
+  display: inline-block;
+  text-shadow: 2px;
+  font-size: 20px;
+  margin: 10px;
+  padding: 4px;
+}
+
+header li:hover {
+  opacity: 1;
+  background-color: #EBA15A;
+  transition: all 0.25s;
+  color: #564E58;
+}
+
+/* ///////////     INDEX PAGE      /////////////////// */
+
+.quote {
+  text-transform: uppercase;
+  line-height: 105%;
+  letter-spacing: 3px;
+  font-weight: 100;
+  text-align: center;
+  color: #78AB46;
+  font-size: 185px;
+  text-shadow: 5px 5px #031D44;
+  margin: 150px 25px 0px 25px;
+}
+
+.welcomepage {
+  font-size: 38px;
+  line-height: 140%;
+  text-shadow: none;
+  text-align: center;
+  font-weight: normal;
+  color: #564E58;
+  font-style: italic;
+  margin: 45px auto 0px auto;
+  width: 750px;
+}
+
+#new-user, #existingUser {
+  box-shadow: none;
+  background: none;
+  border: 2px solid black;
+  border-radius:3px;
+  font-size: 20px;
+  text-align: center;
+}
+/*div that contains all login/button forms*/
+.white-box {
+  display:flex;
+  justify-content: space-around;
+  background-color: #F2EFEA;
+  padding:50px 50px 200px 50px;
+}
+
+.what_to_do{
+  display:flex;
+  justify-content: space-around;
+  background-color: #78AB46;
+  padding:50px 50px 100px 50px;
+  margin-top: 200px;
+}
+
+#welcomelist {
+  font-size: 23px;
+  color: #564E58;
+  font-weight: normal;
+  list-style-type: none;
+  margin-right: 200px;
+}
+
+/*the area that lets the user login*/
+#login-user {
+  border: 2px solid black;
+  padding:20px;
+  box-shadow:2px 2px 4px 5px #D3D3D3;
+  background-color: #EDA15A;
+}
+
+/*This was desiged for the welcome.html, needs to be assiged a classs/ID in the JS*/
+fieldset {
+  background-color: #EBA15A;
+}
+/*------------above-------------*/
+
+
+/*the button that triggers the new user form below*/
+#new-user {
+  padding: 75px;
+  background-color: #EDA15A;
+  border-style: groove;
+  box-shadow:2px 2px 4px 5px #D3D3D3;
+}
+
+#new-user:hover {
+  transition: border .15s .25s;
+  border: 4px dashed #032559;
+}
+
+/*the actual form that lets a user create a profile*/
+#new-user-info {
+  font-size: 15px;
+  text-align: center;
+  display: float;
+  position: relative;
+  width:350px;
+  -webkit-animation: fadein 3s; /* Safari, Chrome and Opera > 12.1 */
+  -moz-animation: fadein 3s; /* Firefox < 16 */
+  -ms-animation: fadein 3s; /* Internet Explorer */
+  -o-animation: fadein 3s; /* Opera < 12.1 */
+  animation: fadein 3s; ease in;
+}
+
+#new-user-info input {
+  float: right;
+}
+
+#new-user-info label{
+  float: left;
+}
+
+#new-user-info .new-profile-submit-button {
+  float: none;
+}
+
+@keyframes fadein {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+
+/* ////////////      PROFILE PAGE      //////// */
+.profile-main {
+  display: flex;
+  color: #032559;
+  padding: 20px;
+  margin-top: 175px;
+}
+
+.profile-main h1 {
+  font-size: 45px;
+  text-shadow: .5px .5px white;
+}
+
+.profile-main h3 {
+  font-size: 22px;
+  padding-top: 30px;
+  color: #564E58;
+}
+
+#profile-container {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  margin-left: 50px;
+  border: 2px solid #032559;
+  background-color: #EBA15A;
+  opacity: .75;
+}
+
+#profile-container img {
+  width: 320px;
+  height: 210px;
+  object-fit: contain; /* this only works on the image itself*/
+  object-position: top center;
+  filter: drop-shadow(16px 16px 5px #564E58);
+  opacity: 75;
+}
+
+#profile-container span {
+  margin-right: 5px;
+}
+
+#user-produce {
+  font-size: 20px;
+  }
+
+#produce-table {
+  margin-left: 175px;
+}
+#drop-produce {
+  font-size: 15px;
+}
+
+/* ////////////      CROP FORM      //////// */
+form {
+  width: 45%;
+  margin: 10% auto;
+  margin-left: 40%;
+}
+
+form label {
+  display: inline-block;
+  width: 50%;
+  font-size: 1.25em;
+  padding: 2%;
+}
+
+legend {
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.563em;
+}
+
+form input[type="text"] {
+  font-size: 1.25em;
+  width: 35%;
+  display: inline-block
+}
+
+form input[type="submit"] {
+  width:30%;
+}
+
+#submit {
+  text-align: center;
+  margin-top: 5%;
+}
+
+form fieldset {
+  border-radius: 5px;
+}
+
+h1 {
+  text-align: center;
+}
+
+/* ////////////      SWAP PAGE    //////// */
+#swap-main {
+    display: flex;
+    justify-content: space-around;
+}
+
+#inv-intro {
+    color: #032559;
+    font-size: 45px;
+    text-align: center;
+    margin-top: 175px;
+}
+
+#address-paragraph {
+    min-width: 230px;
+    color: #564e58;
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 32px;
+}
+
+#swap-fieldset {
+    color: #564e58;
+    font-size: 24px;
+    font-weight: bold;
+    height: 150px;
+    border: none;
+    margin-left: 35px;
+    margin-right: 10px;
+    padding-top: 0px;
+}
