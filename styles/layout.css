@@ -1,4 +1,14 @@
-#profile-photo {
+/*----HEADER CSS----*/
+.logo {
+  width:200px;
+  position: absolute;
+  top: 0px;
+  left: 50px;
+}
+
+
+/*----Home page CSS----*/
+#index-photo, #profile-photo, #swap-photo {
     opacity: .35;
     min-width: 100vw;
     min-height:100vh;
@@ -7,6 +17,10 @@
     z-index: -1;
 }
 
+
+/*----Profile page CSS----*/
 #list-of-produce {
     text-align: center;
 }
+
+/*----Swap page CSS----*/
