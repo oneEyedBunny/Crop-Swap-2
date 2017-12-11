@@ -44,7 +44,7 @@ header li:hover {
   margin: 150px 25px 0px 25px;
 }
 
-.welcomepage {
+.welcome-page, .welcomepage {
   font-size: 38px;
   line-height: 140%;
   text-shadow: none;
@@ -72,7 +72,7 @@ header li:hover {
   padding:50px 50px 200px 50px;
 }
 
-.what_to_do{
+.what-to-do{
   display:flex;
   justify-content: space-around;
   background-color: #78AB46;
@@ -80,7 +80,7 @@ header li:hover {
   margin-top: 200px;
 }
 
-#welcomelist {
+#welcome-list {
   font-size: 23px;
   color: #564E58;
   font-weight: normal;
@@ -202,13 +202,13 @@ fieldset {
 }
 
 /* ////////////      CROP FORM      //////// */
-form {
+#new-crop {
   width: 45%;
   margin: 10% auto;
   margin-left: 40%;
 }
 
-form label {
+#new-crop label {
   display: inline-block;
   width: 50%;
   font-size: 1.25em;
