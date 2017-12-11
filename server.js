@@ -45,19 +45,36 @@ app.get('/neighborhoods', function(request, response) {
 app.get('/user', function(request, response) {
   client.query('SELECT * FROM users;')
   .then(function(data) {
-    response.send(data)
+    response.send(data.rows)
   })
   .catch(function(err) {
     console.error(err)
   })
 })
 
+app.get('/crops', function(request, response) {
+  client.query('SELECT * FROM crops;')
+  .then(function(data) {
+    response.send(data.rows)
+  })
+  .catch(function(err) {
+    console.error(err)
+  })
+})
 
+app.get('/swap_history', function(request, response) {
+  client.query('SELECT * FROM swap_history;')
+  .then(function(data) {
+    response.send(data.rows)
+  })
+  .catch(function(err) {
+    console.error(err)
+  })
+})
 
-
-app.post('user', function(request, response) {
+app.post('/user', function(request, response) {
   client.query(`
-    INSERT INTO users(first_name, last_name, neighborhood, user_name, password)
+    INSERT INTO users(first_name, last_name, neighborhood_id, user_name, password)
     VALUES($1, $2, $3, $4, $5);
     `,
     [

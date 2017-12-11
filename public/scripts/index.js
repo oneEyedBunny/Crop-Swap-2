@@ -83,28 +83,28 @@ var createAccountForm = function(instructions){
     input5.setAttribute("type", "button"); // set each attribute...the css class
     input5.setAttribute("value", "Create Profile");    // set the name attribute...where the data will land
     input5.setAttribute("class", "new-profile-submit-button");
-    input5.setAttribute("onclick", "submitFormDetails()");
+    input5.setAttribute("id", "new-profile-button");
     fieldset.appendChild(input5);
-}
 
-// function to submit user details into the user objects and clear the new user form from the screen
-  function submitFormDetails(){
-    var form = document.forms["new-user-form"];
-    var newFirstName = form.elements["firstName"].value;
-    var newLastName = form.elements["lastName"].value;
-    var newNeighborhood = form.elements["neighborhood"].value;
-    var newUserName = form.elements["userName"].value;
-    var newUserPassword = form.elements["password"].value;
-    var currentUser = new UserProfile(newFirstName, newLastName, newNeighborhood, newUserName, newUserPassword,"",[]);
-    userProfile.push(currentUser);
-    localStorage.setItem("currentUserKey", JSON.stringify(currentUser)); //adds to local storage
-    document.getElementById("new-user-info").innerHTML = ""; //removes the form from the screen
-    //console.log("newFirstName");
-  //  var login = document.getElementById("login_user");
-    var login = document.login_user;
-  //  login.setAttribute("class", ""); //unhides the user login
-    window.location = "profile.html"
-  }
+    // function to submit user details into the user objects and clear the new user form from the screen
+    $('#new-profile-button').on('click', function(event) {
+      event.preventDefault()
+      let data = {
+        first_name: event.target.form.firstName.value,
+        last_name: event.target.form.lastName.value,
+        neighborhood: event.target.form.neighborhood.value,
+        user_name: event.target.form.userName.value,
+        password: event.target.form.password.value,
+        }
+    localStorage.setItem("currentUserKey", JSON.stringify(data)); //adds to local storage
+
+      $.post('/user', data)
+      .then(function() {
+        window.location = "profile.html";
+      })
+    })
+
+}
 
 //function to validate the username/password inputs to see if the user has an account
 function loginUser() {
