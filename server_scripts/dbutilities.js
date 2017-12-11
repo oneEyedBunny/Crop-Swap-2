@@ -125,4 +125,8 @@ module.exports = {
           }
       })
   }
+
+  crp_map: function() {
+    client.query('')
+  }
 }
