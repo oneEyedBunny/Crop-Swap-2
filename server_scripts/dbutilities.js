@@ -59,16 +59,16 @@ module.exports = {
     client.query('SELECT COUNT(*) FROM crops')
     .then(function(result) {
       if(!parseInt(result.rows[0].count)) {
-        fs.readFile('data/crops.json', function(error, fd) {
-          JSON.parse(fd.toString()).forEach(function(element) {
+        // fs.readFile('data/crops.json', function(error, fd) {
+        //   JSON.parse(fd.toString()).forEach(function(element) {
             client.query(
               `INSERT INTO
               crops(user_id, crop_name, quantity_available, quantity_reserved, crop_price)
               VALUES ('hoszie', 'carrots', 10, 4, 1) ON CONFLICT DO NOTHING,
-              VALUES ('sandraul', 'kale', 8, 2, 2) ON CONFLICT DO NOTHING`
+              ('sandraul', 'kale', 8, 2, 2) ON CONFLICT DO NOTHING`
             )
-          })
-        })
+        //   })
+        // })
       }
     })
   },
@@ -125,8 +125,4 @@ module.exports = {
           }
       })
   }
-
-  crp_map: function() {
-    client.query('')
-  }
-}
+};
