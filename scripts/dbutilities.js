@@ -112,7 +112,7 @@ module.exports = {
       .then(function(result) {
           if(!parseInt(results.rows[0].count)) {
               fs.readFile('data/swap_history.json', function(err, fd) {
-          d        JSON.parse(fd.toString()).forEach(function(ele) {
+                  JSON.parse(fd.toString()).forEach(function(ele) {
                       client.query(
                       `INSERT INTO
                       swap_history (user_id_seller, user_id_buyer, crop_name, crop_price, quantity_reserved, seller_rating)
@@ -122,5 +122,9 @@ module.exports = {
               })
           }
       })
+  }
+
+  crp_map: function() {
+    client.query('')
   }
 }
