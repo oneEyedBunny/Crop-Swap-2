@@ -21,7 +21,9 @@ app.listen(PORT, function() {
 
 dbutilities.loadDB(client);
 
-app.use( express.static('./public') );
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(express.static('./public'));
 
 // Base route for serving up HTML
 app.get('/', function(request, response) {
@@ -29,7 +31,7 @@ app.get('/', function(request, response) {
 });
 
 // DB routes for CRUD operations
-app.get('neighborhoods', function(request, response) {
+app.get('/neighborhoods', function(request, response) {
   client.query('SELECT * FROM neighborhood;')
   .then(function(data) {
     response.send(data)
@@ -39,7 +41,7 @@ app.get('neighborhoods', function(request, response) {
   })
 })
 
-app.get('user', function(request, response) {
+app.get('/user', function(request, response) {
   client.query('SELECT * FROM users;')
   .then(function(data) {
     response.send(data)
