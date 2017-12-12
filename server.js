@@ -55,7 +55,7 @@ app.get('/user', function(request, response) {
 })
 
 app.get('/crops', function(request, response) {
-  client.query('SELECT * FROM crops;')
+  client.query('SELECT DISTINCT crop_name FROM crops;')
   .then(function(data) {
     response.send(data.rows)
   })
