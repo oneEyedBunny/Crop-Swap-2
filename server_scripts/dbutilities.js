@@ -55,7 +55,7 @@ module.exports = {
           });
   },
 
-  loadCrops: function() {
+  loadCrops: function(client) {
     client.query('SELECT COUNT(*) FROM crops')
     .then(function(result) {
       if(!parseInt(result.rows[0].count)) {
@@ -91,7 +91,7 @@ module.exports = {
       }
     })
   },
-  loadUsers: function() {
+  loadUsers: function(client) {
       client.query('SELECT COUNT (*) FROM users')
       .then(function(result) {
           if(!parseInt(results.rows[0].count)) {
@@ -109,7 +109,7 @@ module.exports = {
       })
   },
 
-  swap_history: function() {
+  swap_history: function(client) {
       client.query('SELECT COUNT (*) FROM swap_history')
       .then(function(result) {
           if(!parseInt(results.rows[0].count)) {

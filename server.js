@@ -21,6 +21,8 @@ app.listen(PORT, function() {
 
 dbutilities.loadDB(client);
 dbutilities.loadNeighborhood(client);
+dbutilities.loadUsers(client);
+dbutilities.loadCrops(client);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
@@ -53,7 +55,7 @@ app.get('/user', function(request, response) {
 })
 
 app.get('/crops', function(request, response) {
-  client.query('SELECT * FROM crops;')
+  client.query('SELECT DISTINCT crop_name FROM crops;')
   .then(function(data) {
     response.send(data.rows)
   })
