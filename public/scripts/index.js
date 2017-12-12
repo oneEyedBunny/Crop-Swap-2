@@ -32,9 +32,9 @@ $('#new-user').on('click', function() {
   var $labelB = $('<label>').appendTo('#new-user-fieldset').html("Last Name: ");
   var $inputB = $('<input>').appendTo('#new-user-fieldset').attr("name", "lastName");
   var $labelC = $('<label>').appendTo('#new-user-fieldset').html("Neighborhood: ");
-  var $inputC = $('<input>').appendTo('#new-user-fieldset').attr("name", "neighborhood");
+  var $inputC = $('<input>').appendTo('#new-user-fieldset').attr("name", "neighborhood_id");
   var $labelD = $('<label>').appendTo('#new-user-fieldset').html("User Name: ");
-  var $inputD = $('<input>').appendTo('#new-user-fieldset').attr("name", "user_name");
+  var $inputD = $('<input>').appendTo('#new-user-fieldset').attr("name", "userName");
   var $labelE = $('<label>').appendTo('#new-user-fieldset').html("Password: ");
   var $inputE = $('<input>').appendTo('#new-user-fieldset').attr("name", "password");
 
@@ -43,25 +43,27 @@ $('#new-user').on('click', function() {
     value: "Create Profile",
     id: "new-profile-button"
   }).addClass("new-profile-submit-button").appendTo('#new-user-fieldset');
-  });
 
-    // function to submit user details into the user objects and clear the new user form from the screen
-    $('#new-profile-button').on('click', function(event) {
-      event.preventDefault()
-      let data = {
-        first_name: event.target.form.firstName.value,
-        last_name: event.target.form.lastName.value,
-        neighborhood: event.target.form.neighborhood.value,
-        user_name: event.target.form.userName.value,
-        password: event.target.form.password.value,
-        }
+
+  // function to submit user details into the user objects and clear the new user form from the screen
+  $newFormButton.on('click', function(event) {
+    event.preventDefault()
+    let data = {
+      first_name: event.target.form.firstName.value,
+      last_name: event.target.form.lastName.value,
+      neighborhood_id: event.target.form.neighborhood_id.value,
+      user_name: event.target.form.userName.value,
+      password: event.target.form.password.value,
+    }
     localStorage.setItem("currentUserKey", JSON.stringify(data)); //adds to local storage
-        console.log(data);
-      $.post('/user', data)
-      .then(function() {
-        window.location = "/profile.html";
-      })
+
+    $.post('/user', data)
+    .then(function(id) {
+      console.log(id);
+      window.location = "profile.html";
     })
+  })
+});
 
 //function to validate the username/password inputs to see if the user has an account
 function loginUser() {
@@ -69,14 +71,14 @@ function loginUser() {
   var userNameInput = form.Username.value;
   var passwordInput = form.Password.value;
   var userMatch = userProfile.find (function (profile) {
-      return((profile.userName == userNameInput) && (profile.password == passwordInput))
-    });
-    if(!userMatch) {
-      var instructions = document.createElement("p");
-      instructions.innerText = "No account found. Please create an account below.";
-      createAccountForm (instructions);
-      } else {
-      localStorage.setItem("currentUserKey", JSON.stringify(userMatch)); //adds to local storage
-      window.location = "profile.html";
-    }
+    return((profile.userName == userNameInput) && (profile.password == passwordInput))
+  });
+  if(!userMatch) {
+    var instructions = document.createElement("p");
+    instructions.innerText = "No account found. Please create an account below.";
+    createAccountForm (instructions);
+  } else {
+    localStorage.setItem("currentUserKey", JSON.stringify(userMatch)); //adds to local storage
+    window.location = "profile.html";
+  }
 }
