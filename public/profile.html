@@ -23,11 +23,11 @@
                             <label for="crop">Crop:</label>
                             <input name="crop" id="crop" type="text">
                             <label for="quantity">Quantity:</label>
-                            <input name"quantity" id="quantity" type="text">
+                            <input name"quantity" id="quantity" type="number">
                             <label for"crop-price">Crop Price:</label>
-                            <input name="crop-price" id="crop-price" type="text">
+                            <input name="crop_price" id="crop-price" type="number">
                         </fieldset>
-                        <div id="submit"><input type="submit" value="Add New Crop"></div>
+                        <div id="submit"><input type="submit" value="Add New Crop" id="submit-crop"></div>
                     </form>
                     <input type="button" value="See Credits Earned">
                     <input type="button" value="See Credits Spent">
@@ -43,6 +43,8 @@
                 </table>
             </div>
         </main>
+        <script type="text/javascript" src="vendors/jquery-3.2.1.min.js"></script>
         <script type="text/javascript" src="scripts/app.js"></script>
+        <script type="text/javascript" src="scripts/profile.js"></script>
     </body>
 </html>

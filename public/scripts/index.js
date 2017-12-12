@@ -70,11 +70,12 @@ $('#new-user').on('click', function() {
       user_name: event.target.form.userName.value,
       password: event.target.form.password.value,
     }
-    localStorage.setItem("currentUserKey", JSON.stringify(data)); //adds to local storage
-
+    
     $.post('/user', data)
-    .then(function(id) {
-      console.log(id);
+    .then(function(newData) {
+        console.log(newData);
+        data.id = newData.user_id;
+        localStorage.setItem("currentUserKey", JSON.stringify(data)); //adds to local storage
       window.location = "profile.html";
     })
   })

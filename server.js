@@ -42,7 +42,7 @@ app.get('/neighborhoods', function(request, response) {
   .catch(function(err) {
     console.error(err)
   })
-})
+});
 
 app.get('/user', function(request, response) {
   client.query('SELECT * FROM users;')
@@ -52,7 +52,7 @@ app.get('/user', function(request, response) {
   .catch(function(err) {
     console.error(err)
   })
-})
+});
 
 app.get('/crops', function(request, response) {
   client.query('SELECT DISTINCT crop_name FROM crops;')
@@ -62,7 +62,24 @@ app.get('/crops', function(request, response) {
   .catch(function(err) {
     console.error(err)
   })
+});
+
+app.post('/crops', function(request, response) {
+  client.query(
+    `INSERT INTO crops(user_id, crop_name, quantity_available, quantity_reserved, crop_price)
+    VALUES($1, $2, $3, $4, $5)`,
+  [
+    request.body.user_id,
+    request.body.crop_name,
+    request.body.quantity_available,
+    request.body.quantity_reserved,
+    request.body.crop_price,
+  ]
+)
+.catch(function(err) {
+  console.error(err)
 })
+});
 
 app.get('/swap_history', function(request, response) {
   client.query('SELECT * FROM swap_history;')
@@ -89,8 +106,9 @@ app.post('/user', function(request, response) {
     ]
   )
   .then(function(data) {
-    response.send(data.rows[0].user_id);
-    response.redirect('/')
+    console.log("new id", data.rows[0].user_id.toString());
+    response.status(200).send(data.rows[0]);
+    
   })
   .catch(function(err) {
     console.error(err)
