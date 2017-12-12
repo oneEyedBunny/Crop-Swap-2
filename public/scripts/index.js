@@ -9,82 +9,41 @@ var UserProfile = function (firstname, lastname, username, password, neighborhoo
   this.crops = cropIndexes;
 }
 
-//Array of user objects with test data
+//Array of user objects
 var userProfile = [];
 // userProfile.push(new UserProfile("Allyson", "Short", "Allyson", "Short", "NorthEast", "images/oneeyedbunny.jpg", [0,1,4,6,7]));
-// userProfile.push(new UserProfile("Tanya", "Griego", "Tanya", "Griego", "Sellwood", "images/racoon.jpg", [1,2,4,5,6,7]));
-// userProfile.push(new UserProfile("Sandra", "Ultreras", "Sandra", "Ultreras", "The Pearl", "images/ape.jpg", [0,3,5,7]));
-// userProfile.push(new UserProfile("Bryan", "Bigej", "Brian", "Bigej", "PSU", "images/yak.jpg", [0,2,3,4,7]));
 localStorage.setItem("user-profiles", JSON.stringify(userProfile));
 
-//function to create a form that lets a new user add their profile
-var createAccountForm = function(instructions){
-    var container = document.getElementById("profile-forms");
-    container.innerHTML="";
-    var form= document.createElement("form")
-    form.setAttribute("id", "new-user-info");
-    form.setAttribute("name", "new-user-form");
-    container.appendChild(form);
-    if (instructions) {
-      form.appendChild(instructions)
-    }
+//function that creates the new user form when join now button is clicked
+$('#new-user').on('click', function() {
+  $('#login-user').hide();
+  $('#new-user').hide();
 
-    var space = document.createElement("br");  //create a break in HTML
-    var fieldset = document.createElement("fieldset");
-    header = document.createElement("legend"); //create the legend header
-    header.innerText = "Your Profile";  /// tell it what you want the header to say
-    fieldset.appendChild(header);  //append the the form with the header
-    form.appendChild(fieldset);  //append the the form with the header
+  var $newForm = $('<form>').fadeIn().appendTo('#profile-forms');
+  $newForm.attr('id', 'new-user-info');
 
-    label1 = document.createElement("label") //create an HTML label for the input
-    label1.innerText = "First Name:  "; /// tell it you what you want the label to say
-    fieldset.appendChild(label1);   // append the label to the form
-    input1 = document.createElement("input"); //create the input
-    input1.setAttribute("name", "firstName");    // set the name attribute...where the data will land
-    fieldset.appendChild(input1);
-    fieldset.appendChild(space.cloneNode());   //creates a break and allows us to do it repeatidly
+  var $newFieldset = $('<fieldset>').appendTo('#new-user-info');
+  $newFieldset.attr('id', 'new-user-fieldset');
 
-    label2 = document.createElement("label")
-    label2.innerText = "Last Name:  ";
-    fieldset.appendChild(label2);
-    input2 = document.createElement("input"); //create the input
-    input2.setAttribute("name", "lastName");    // set the name attribute...where the data will land
-    fieldset.appendChild(input2);
-    fieldset.appendChild(space.cloneNode());;
+  var $newLegend = $('<legend>').appendTo('#new-user-fieldset').html("Profile Info");
 
-    label4 = document.createElement("label")
-    label4.innerText = "Neighborhood:  ";
-    fieldset.appendChild(label4);
-    input4 = document.createElement("input"); //create the input
-    input4.setAttribute("name", "neighborhood");    // set the name attribute...where the data will land
-    fieldset.appendChild(input4);
-    fieldset.appendChild(space.cloneNode());
-    fieldset.appendChild(space.cloneNode());
+  var $labelA = $('<label>').appendTo('#new-user-fieldset').html("First Name: ");
+  var $inputA = $('<input>').appendTo('#new-user-fieldset').attr("name", "firstName");
+  var $labelB = $('<label>').appendTo('#new-user-fieldset').html("Last Name: ");
+  var $inputB = $('<input>').appendTo('#new-user-fieldset').attr("name", "lastName");
+  var $labelC = $('<label>').appendTo('#new-user-fieldset').html("Neighborhood: ");
+  var $inputC = $('<input>').appendTo('#new-user-fieldset').attr("name", "neighborhood");
+  var $labelD = $('<label>').appendTo('#new-user-fieldset').html("User Name: ");
+  var $inputD = $('<input>').appendTo('#new-user-fieldset').attr("name", "user_name");
+  var $labelE = $('<label>').appendTo('#new-user-fieldset').html("Password: ");
+  var $inputE = $('<input>').appendTo('#new-user-fieldset').attr("name", "password");
 
-    label5 = document.createElement("label")
-    label5.innerText = "User Name:  ";
-    fieldset.appendChild(label5);
-    input5 = document.createElement("input"); //create the input
-    input5.setAttribute("name", "userName");    // set the name attribute...where the data will land
-    fieldset.appendChild(input5);
-    fieldset.appendChild(space.cloneNode());
-
-    label6 = document.createElement("label")
-    label6.innerText = "Password:  ";
-    fieldset.appendChild(label6);
-    input6 = document.createElement("input"); //create the input
-    input6.setAttribute("name", "password");    // set the name attribute...where the data will land
-    fieldset.appendChild(input6);
-    fieldset.appendChild(space.cloneNode());
-    fieldset.appendChild(space.cloneNode());
-    fieldset.appendChild(space.cloneNode());
-
-    input5 = document.createElement("input"); //create the input
-    input5.setAttribute("type", "button"); // set each attribute...the css class
-    input5.setAttribute("value", "Create Profile");    // set the name attribute...where the data will land
-    input5.setAttribute("class", "new-profile-submit-button");
-    input5.setAttribute("id", "new-profile-button");
-    fieldset.appendChild(input5);
+  var $newFormButton = $('<input>').attr({
+    type: "button",
+    value: "Create Profile",
+    id: "new-profile-button"
+  }).addClass("new-profile-submit-button").appendTo('#new-user-fieldset');
+  });
 
     // function to submit user details into the user objects and clear the new user form from the screen
     $('#new-profile-button').on('click', function(event) {
@@ -103,8 +62,6 @@ var createAccountForm = function(instructions){
         window.location = "profile.html";
       })
     })
-
-}
 
 //function to validate the username/password inputs to see if the user has an account
 function loginUser() {
