@@ -95,8 +95,7 @@ module.exports = {
               WHERE first_name = 'nick'
               ON CONFLICT DO NOTHING;`
             )
-            console.log("finished adding crops")
-        //   })
+                    //   })
         // })
       }
     })
@@ -106,7 +105,6 @@ module.exports = {
       client.query('SELECT COUNT (*) FROM users')
       .then(function(result) {
           if(!parseInt(result.rows[0].count)) {
-            console.log("inserting users")
               // fs.readFile('data/users.json', function(err, fd) {
               //     JSON.parse(fd.toString()).forEach(function(ele) {
                       client.query(

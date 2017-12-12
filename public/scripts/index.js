@@ -14,6 +14,19 @@ var userProfile = [];
 // userProfile.push(new UserProfile("Allyson", "Short", "Allyson", "Short", "NorthEast", "images/oneeyedbunny.jpg", [0,1,4,6,7]));
 localStorage.setItem("user-profiles", JSON.stringify(userProfile));
 
+//FUNCTION TO GET the list of neighbhorhood names
+$(document).ready(function() {
+$.get('/neighborhood').then(function(neighborhoodList) {
+  console.log(neighborhoodList);//store this in an array and use it later
+  neighborhoodList.forEach(function (element) {
+    var $option = $('<option>').attr('value', element.neighbhorhood_name).text(element.neighborhood_name)
+    $('.neighborhoodDropDown').apend($option)
+  })
+})
+})
+
+
+
 //function that creates the new user form when join now button is clicked
 $('#new-user').on('click', function() {
   $('#login-user').hide();
@@ -32,7 +45,9 @@ $('#new-user').on('click', function() {
   var $labelB = $('<label>').appendTo('#new-user-fieldset').html("Last Name: ");
   var $inputB = $('<input>').appendTo('#new-user-fieldset').attr("name", "lastName");
   var $labelC = $('<label>').appendTo('#new-user-fieldset').html("Neighborhood: ");
-  var $inputC = $('<input>').appendTo('#new-user-fieldset').attr("name", "neighborhood_id");
+  var $inputC = $('<select>').appendTo('#new-user-fieldset').attr("name", "neighborhood_id").addClass('neighborhoodDropDown');
+
+
   var $labelD = $('<label>').appendTo('#new-user-fieldset').html("User Name: ");
   var $inputD = $('<input>').appendTo('#new-user-fieldset').attr("name", "userName");
   var $labelE = $('<label>').appendTo('#new-user-fieldset').html("Password: ");
