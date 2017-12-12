@@ -1,11 +1,19 @@
+function MyProfile (firstName, lastName, neighborhood) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.neighborhood = neighborhood;
+
+}
+
+
 'use strict';
 
 $(document).ready(function() {
-    currentUser = JSON.parse(localStorage.getItem("currentUserKey"));
+    var currentUser = JSON.parse(localStorage.getItem("currentUserKey"));
     if (currentUser != null) {
        var container = $('#profile-container');
        var elPicture  = $('img');
-       elPicture.id = "user-picture"
+       elPicture.id = "user-picture";
        elPicture.src = currentUser.img;
        container.append(elPicture);
        var elUserPicture = $('p');
@@ -16,7 +24,7 @@ $(document).ready(function() {
        elUpdatePicture.on('change', handlePicture);
 
        var $firstLastName = $('p');
-       var nameLabel = $('label').text("Name: ");
+       nameLabel = $('label').text("Name: ");
        $firstLastName.append(nameLabel);
 
        var $firstName = $('span').attr('contenteditable', true).text(currentUser.firstName).on('input, handleFirstName');
@@ -28,7 +36,7 @@ $(document).ready(function() {
 
        var $userName = $('p');
        container.append($userName);
-       var $userNameLabel = $('label').text('Username: ');
+       var $userNameLabel = $($userName).text('Username: ');
        $userName.append($userNameLabel);
 
        var $userNameSpan = $('span').attr('contenteditable', true).text(currentUser.userName);
@@ -37,10 +45,42 @@ $(document).ready(function() {
 
        var $neighborhood = $('p');
        container.append($neighborhood);
-       var $userNeighborhood = $('label').text('Neighborhood');
-       $neighborhood.append($userNeighborhood);
+       var $userNeighborhood = $('label').text('Neighborhood: ');
+       container.append($userNeighborhood);
        var $neighborhoodSpan = $('span').attr('contenteditable', true).text(currentUser.neighborhood).on('input', handleNeighborhood);
-    }
+    
+
+  function handleUserName (event) {
+    currentUser.userName = event.target.innerText;
+    localStorage.setItem("currentUserKey", JSON.stringify(currentUser));
+  }
+  
+  function handleNeighborhood (event) {
+    currentUser.neighborhood = event.target.innerText;
+    localStorage.setItem("currentUserKey", JSON.stringify(currentUser));
+  }
+
+  function handleFirstName (event) {
+    currentUser.firstName = event.target.innerText;
+    localStorage.setItem("currentUserKey", JSON.stringify(currentUser));
+  }
+  
+  function handleLastName (event) {
+    currentUser.lastName = event.target.innerText;
+    localStorage.setItem("currentUserKey", JSON.stringify(currentUser));
+  }
 };
 
-profileContainer();
+
+function handlePicture(event) {
+    if(event.target.files.length > 0) {
+        var file = event.target.files[0];
+        var reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.on('load', function() {
+            var base64image = reader.results;
+            $('user-picture').src(base64image);
+            localStorage.setItem('currentUserKey', JSON.stringify(currentUser));
+        }) 
+    }
+}

@@ -56,10 +56,10 @@ $('#new-user').on('click', function() {
         password: event.target.form.password.value,
         }
     localStorage.setItem("currentUserKey", JSON.stringify(data)); //adds to local storage
-
+        console.log(data);
       $.post('/user', data)
       .then(function() {
-        window.location = "profile.html";
+        window.location = "/profile.html";
       })
     })
 
