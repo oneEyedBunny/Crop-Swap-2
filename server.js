@@ -77,17 +77,19 @@ app.get('/swap_history', function(request, response) {
 app.post('/user', function(request, response) {
   client.query(`
     INSERT INTO users(first_name, last_name, neighborhood_id, user_name, password)
-    VALUES($1, $2, $3, $4, $5);
+    VALUES($1, $2, $3, $4, $5)
+    RETURNING user_id;
     `,
     [
       request.body.first_name,
       request.body.last_name,
-      request.body.neighborhood,
+      request.body.neighborhood_id,
       request.body.user_name,
       request.body.password,
     ]
   )
   .then(function(data) {
+    response.send(data.rows[0].user_id);
     response.redirect('/')
   })
   .catch(function(err) {

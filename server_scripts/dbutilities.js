@@ -55,24 +55,6 @@ module.exports = {
           });
   },
 
-  loadCrops: function(client) {
-    client.query('SELECT COUNT(*) FROM crops')
-    .then(function(result) {
-      if(!parseInt(result.rows[0].count)) {
-        // fs.readFile('data/crops.json', function(error, fd) {
-        //   JSON.parse(fd.toString()).forEach(function(element) {
-            client.query(
-              `INSERT INTO
-              crops(user_id, crop_name, quantity_available, quantity_reserved, crop_price)
-              VALUES ('hoszie', 'carrots', 10, 4, 1) ON CONFLICT DO NOTHING,
-              ('sandraul', 'kale', 8, 2, 2) ON CONFLICT DO NOTHING`
-            )
-        //   })
-        // })
-      }
-    })
-  },
-
   loadNeighborhood: function(client) {
     client.query('SELECT COUNT(*) FROM neighborhood')
     .then(function(result) {
@@ -91,18 +73,58 @@ module.exports = {
       }
     })
   },
+
+  loadCrops: function(client) {
+    client.query('SELECT COUNT(*) FROM crops')
+    .then(function(result) {
+      if(!parseInt(result.rows[0].count)) {
+        // fs.readFile('data/crops.json', function(error, fd) {
+        //   JSON.parse(fd.toString()).forEach(function(element) {
+            client.query(
+              `INSERT INTO
+              crops(user_id, crop_name, quantity_available, quantity_reserved, crop_price)
+              SELECT user_id,'carrots', 10, 4, 1
+              FROM users
+              WHERE first_name = 'jimmy'
+              ON CONFLICT DO NOTHING;
+
+              INSERT INTO
+              crops(user_id, crop_name, quantity_available, quantity_reserved, crop_price)
+              SELECT user_id,'kale', 8, 2, 2
+              FROM users
+              WHERE first_name = 'nick'
+              ON CONFLICT DO NOTHING;`
+            )
+            console.log("finished adding crops")
+        //   })
+        // })
+      }
+    })
+  },
+
   loadUsers: function(client) {
       client.query('SELECT COUNT (*) FROM users')
       .then(function(result) {
-          if(!parseInt(results.rows[0].count)) {
+          if(!parseInt(result.rows[0].count)) {
+            console.log("inserting users")
               // fs.readFile('data/users.json', function(err, fd) {
               //     JSON.parse(fd.toString()).forEach(function(ele) {
                       client.query(
                       `INSERT INTO
-                      users (first_name, last_name, neighborhood, user_name, password)
-                      VALUES ('jimmy', 'john', 'PSU', 'johnjohn', 'PSU123') ON CONFLICT DO NOTHING,
-                      ('nick', 'hoszko', 'northeast', 'hoszie', 'nojiri123') ON CONFLICT DO NOTHING`
+                      users (first_name, last_name, neighborhood_id, user_name, password)
+                      SELECT 'jimmy','john', neighborhood_id,'johnjohn', 'psu123'
+                      FROM neighborhood
+                      WHERE neighborhood_name= 'PSU'
+                      ON CONFLICT DO NOTHING;
+
+                      INSERT INTO
+                      users (first_name, last_name, neighborhood_id, user_name, password)
+                      SELECT 'nick','hoszko', neighborhood_id,'hoszie', 'nojiri123'
+                      FROM neighborhood
+                      WHERE neighborhood_name= 'Sellwood'
+                      ON CONFLICT DO NOTHING;`
                       )
+                      console.log("finished adding users")
               //     })
               // })
           }
@@ -112,7 +134,7 @@ module.exports = {
   swap_history: function(client) {
       client.query('SELECT COUNT (*) FROM swap_history')
       .then(function(result) {
-          if(!parseInt(results.rows[0].count)) {
+          if(!parseInt(result.rows[0].count)) {
               // fs.readFile('data/swap_history.json', function(err, fd) {
               //     JSON.parse(fd.toString()).forEach(function(ele) {
                       client.query(
