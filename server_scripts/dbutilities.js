@@ -148,9 +148,3 @@ module.exports = {
       })
   }
 };
-
-
-`SELECT * FROM neighborhood
-INNER JOIN users ON users.neighborhood_id = neighborhood.neighborhood_id
-INNER JOIN crops ON crops.user_id = user.user_id_buyer
-WHERE crops.crop_name = $1`

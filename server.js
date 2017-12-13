@@ -96,3 +96,23 @@ app.post('/user', function(request, response) {
     console.error(err)
   })
 })
+
+app.get('/locations/:cropName', function(request, response) {
+  client.query(`
+    SELECT neighborhood_name, address, swap_day, swap_time
+    FROM neighborhood
+    INNER JOIN users ON users.neighborhood_id = neighborhood.neighborhood_id
+    INNER JOIN crops ON crops.user_id = users.user_id
+    WHERE crops.crop_name = $1;
+    `,
+    [
+    request.params.cropName,
+    ]
+  )
+  .then(function(data) {
+    response.send(data.rows)
+  })
+  .catch(function(err) {
+    console.error(err)
+  })
+})

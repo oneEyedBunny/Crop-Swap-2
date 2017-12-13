@@ -11,22 +11,23 @@ function initMap() {
   })
 };
 
-$(document).ready(function() {
-  makeRequest();
-});
-
-function makeRequest() {
-  $.get('/neighborhoods', function(data) {
-      data.forEach(function(neighborhood) {
-      addMarker(neighborhood);
-    });
+function handleCrops() {
+  $('#produce-location-options').change(function() {
+    var selectedCrop = $('#produce-location-options option:selected').text();
+    console.log(selectedCrop);
+    $.get(`/locations/${selectedCrop}`).then(function(locationData) {
+      console.log(locationData);
+      locationData.forEach(function (location) {
+        addMarker(location)
+      })
+    })
   })
 }
 
-function addMarker(neighborhood) {
+function addMarker(location) {
   var geocoder = new google.maps.Geocoder();
 
-  geocoder.geocode( { 'address': neighborhood.address}, function(results, status) {
+  geocoder.geocode( { 'address': location.address}, function(results, status) {
 
     if (status == google.maps.GeocoderStatus.OK) {
       var latitude = results[0].geometry.location.lat();
@@ -34,8 +35,15 @@ function addMarker(neighborhood) {
       new google.maps.Marker({
         position: {lat: latitude, lng: longitude},
         map: map,
-        title: neighborhood.neighborhood_name
+        title: location.neighborhood_name
       });
     }
   });
 }
+
+
+
+$(document).ready(function() {
+  initMap();
+  handleCrops();
+});
