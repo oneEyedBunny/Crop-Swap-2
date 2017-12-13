@@ -1,3 +1,4 @@
+//function that creates all the DB tables & loads data into them
 module.exports = {
   loadDB: function(client) {
       client.query (`DROP SCHEMA IF EXISTS public CASCADE`);
@@ -54,7 +55,7 @@ module.exports = {
               console.error(error);
           });
   },
-
+//function that loads hardcoded nieghborhood data
   loadNeighborhood: function(client) {
     client.query('SELECT COUNT(*) FROM neighborhood')
     .then(function(result) {
@@ -73,7 +74,7 @@ module.exports = {
       }
     })
   },
-
+//function that loads hardcoded crop data
   loadCrops: function(client) {
     client.query('SELECT COUNT(*) FROM crops')
     .then(function(result) {
@@ -100,7 +101,7 @@ module.exports = {
       }
     })
   },
-
+//function that loads hard coded user data
   loadUsers: function(client) {
       client.query('SELECT COUNT (*) FROM users')
       .then(function(result) {
@@ -129,6 +130,7 @@ module.exports = {
       })
   },
 
+  // function that loads hard coded swap_history data
   swap_history: function(client) {
       client.query('SELECT COUNT (*) FROM swap_history')
       .then(function(result) {
