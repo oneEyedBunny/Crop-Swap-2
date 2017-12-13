@@ -55,7 +55,7 @@ app.get('/user', function(request, response) {
 });
 
 app.get('/crops', function(request, response) {
-  client.query('SELECT * FROM crops;')
+  client.query('SELECT DISTINCT crop_name FROM crops;')
   .then(function(data) {
     response.send(data.rows)
   })
@@ -109,6 +109,26 @@ app.post('/user', function(request, response) {
     console.log("new id", data.rows[0].user_id.toString());
     response.status(200).send(data.rows[0]);
     
+  })
+  .catch(function(err) {
+    console.error(err)
+  })
+})
+
+app.get('/locations/:cropName', function(request, response) {
+  client.query(`
+    SELECT neighborhood_name, address, swap_day, swap_time
+    FROM neighborhood
+    INNER JOIN users ON users.neighborhood_id = neighborhood.neighborhood_id
+    INNER JOIN crops ON crops.user_id = users.user_id
+    WHERE crops.crop_name = $1;
+    `,
+    [
+    request.params.cropName,
+    ]
+  )
+  .then(function(data) {
+    response.send(data.rows)
   })
   .catch(function(err) {
     console.error(err)

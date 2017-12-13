@@ -14,6 +14,17 @@ var userProfile = [];
 // userProfile.push(new UserProfile("Allyson", "Short", "Allyson", "Short", "NorthEast", "images/oneeyedbunny.jpg", [0,1,4,6,7]));
 localStorage.setItem("user-profiles", JSON.stringify(userProfile));
 
+//FUNCTION to get the list of neighbhorhood names for drop down boxes on the index/profile page
+//array for the list of neighborhoods from the DB
+let neighborhoods= [];
+
+$(document).ready(function() {
+$.get('/neighborhoods').then(function(neighborhoodList) {
+  console.log(neighborhoodList);
+  neighborhoods= neighborhoodList;
+})
+})
+
 //function that creates the new user form when join now button is clicked
 $('#new-user').on('click', function() {
   $('#login-user').hide();
@@ -26,17 +37,24 @@ $('#new-user').on('click', function() {
   $newFieldset.attr('id', 'new-user-fieldset');
 
   var $newLegend = $('<legend>').appendTo('#new-user-fieldset').html("Profile Info");
+  var $newDiv = $('<div>').appendTo('#new-user-fieldset').addClass('new-user-div');
 
-  var $labelA = $('<label>').appendTo('#new-user-fieldset').html("First Name: ");
-  var $inputA = $('<input>').appendTo('#new-user-fieldset').attr("name", "firstName");
-  var $labelB = $('<label>').appendTo('#new-user-fieldset').html("Last Name: ");
-  var $inputB = $('<input>').appendTo('#new-user-fieldset').attr("name", "lastName");
-  var $labelC = $('<label>').appendTo('#new-user-fieldset').html("Neighborhood: ");
-  var $inputC = $('<input>').appendTo('#new-user-fieldset').attr("name", "neighborhood_id");
-  var $labelD = $('<label>').appendTo('#new-user-fieldset').html("User Name: ");
-  var $inputD = $('<input>').appendTo('#new-user-fieldset').attr("name", "userName");
-  var $labelE = $('<label>').appendTo('#new-user-fieldset').html("Password: ");
-  var $inputE = $('<input>').appendTo('#new-user-fieldset').attr("name", "password");
+  var $labelA = $('<label>').appendTo('.new-user-div').html("First Name: ");
+  var $inputA = $('<input>').appendTo('.new-user-div').attr("name", "firstName");
+  var $labelB = $('<label>').appendTo('.new-user-div').html("Last Name: ");
+  var $inputB = $('<input>').appendTo('.new-user-div').attr("name", "lastName");
+  var $labelC = $('<label>').appendTo('.new-user-div').html("Neighborhood: ");
+  var $inputC = $('<select>').appendTo('.new-user-div').attr("name", "neighborhood_id").addClass('neighborhoodDropDown');
+
+  neighborhoods.forEach(function (element) {
+    var $option = $('<option>').attr('value', element.neighbhorhood_id).text(element.neighborhood_name)
+    $('.neighborhoodDropDown').append($option)
+  })
+
+  var $labelD = $('<label>').appendTo('.new-user-div').html("User Name: ");
+  var $inputD = $('<input>').appendTo('.new-user-div').attr("name", "userName");
+  var $labelE = $('<label>').appendTo('.new-user-div').html("Password: ");
+  var $inputE = $('<input>').appendTo('.new-user-div').attr("name", "password");
 
   var $newFormButton = $('<input>').attr({
     type: "button",
@@ -55,7 +73,7 @@ $('#new-user').on('click', function() {
       user_name: event.target.form.userName.value,
       password: event.target.form.password.value,
     }
-    
+
     $.post('/user', data)
     .then(function(newData) {
         console.log(newData);
