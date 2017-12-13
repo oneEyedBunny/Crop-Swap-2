@@ -14,19 +14,17 @@ var userProfile = [];
 // userProfile.push(new UserProfile("Allyson", "Short", "Allyson", "Short", "NorthEast", "images/oneeyedbunny.jpg", [0,1,4,6,7]));
 localStorage.setItem("user-profiles", JSON.stringify(userProfile));
 
-//FUNCTION to get the list of neighbhorhood names for drop down boxes on the index/profile page
-//array for the list of neighborhoods from the DB
+//FUNCTION to define an array for the list of neighborhoods from teh DB & then to get the list of neighbhorhood names for drop down boxes on the index/profile page
 let neighborhoods= [];
-
 $(document).ready(function() {
 $.get('/neighborhoods').then(function(neighborhoodList) {
   console.log(neighborhoodList);
   neighborhoods= neighborhoodList;
-})
+  })
 })
 
 //function that creates the new user form when join now button is clicked
-$('#new-user').on('click', function() {
+function createAccountForm() {
   $('#login-user').hide();
   $('#new-user').hide();
 
@@ -47,11 +45,9 @@ $('#new-user').on('click', function() {
   var $inputC = $('<select>').appendTo('.new-user-div').attr("name", "neighborhood_id").addClass('neighborhoodDropDown');
 
   neighborhoods.forEach(function (element) {
-    // var $option = $('<option>').attr('value', element.neighbhorhood_id).text(element.neighborhood_name);
-    var $option = `<option value="${element.neighborhood_id}">${element.neighborhood_name}</option>`;
-    
-    $('.neighborhoodDropDown').append($option);
-  });
+    var $option = $('<option>').attr('value', element.neighborhood_id).text(element.neighborhood_name)
+    $('.neighborhoodDropDown').append($option)
+  })
 
   var $labelD = $('<label>').appendTo('.new-user-div').html("User Name: ");
   var $inputD = $('<input>').appendTo('.new-user-div').attr("name", "userName");
@@ -63,7 +59,6 @@ $('#new-user').on('click', function() {
     value: "Create Profile",
     id: "new-profile-button"
   }).addClass("new-profile-submit-button").appendTo('#new-user-fieldset');
-
 
   // function to submit user details into the user objects and clear the new user form from the screen
   $newFormButton.on('click', function(event) {
@@ -85,20 +80,19 @@ $('#new-user').on('click', function() {
       window.location = "profile.html";
     })
   })
-});
+};
 
 //function to validate the username/password inputs to see if the user has an account
 function loginUser() {
-  var form = document.login_user;
-  var userNameInput = form.Username.value;
-  var passwordInput = form.Password.value;
-  var userMatch = userProfile.find (function (profile) {
+  let form = document.login_user;
+  let userNameInput = form.userName.value;
+  let passwordInput = form.password.value;
+  let userMatch = userProfile.find (function (profile) {
     return((profile.userName == userNameInput) && (profile.password == passwordInput))
   });
   if(!userMatch) {
-    var instructions = document.createElement("p");
-    instructions.innerText = "No account found. Please create an account below.";
-    createAccountForm (instructions);
+    let $instructions = $('<p>').appendTo('#profile-forms').html("No account found. Please create an account below.");
+    createAccountForm ();
   } else {
     localStorage.setItem("currentUserKey", JSON.stringify(userMatch)); //adds to local storage
     window.location = "profile.html";
