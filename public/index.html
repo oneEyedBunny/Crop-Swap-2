@@ -31,14 +31,14 @@
       <div class="white-box" id="profile-forms">
         <form id="login-user" name="login_user">
           <label> Username:
-            <input input type = "text" name= "Username" maxLength="20"/>
+            <input input type = "text" name= "userName" maxLength="20"/>
           </label><br><br>
           <label> Password:
-            <input input type = "password" name= "Password" maxlength="20"/><br><br>
+            <input input type = "password" name= "password" maxlength="20"/><br><br>
           </label>
           <input id="existingUser" input type = "button" value = "Login" onclick = "loginUser()"/>
           </form>
-        <input id="new-user" type="button" value="Join Now!"/>
+        <input id="new-user" type="button" value="Join Now!" onclick="createAccountForm()"/>
       </div>
       <script type= "text/javascript" src = "https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
       <script type= "text/javascript" src = "scripts/app.js"></script>
