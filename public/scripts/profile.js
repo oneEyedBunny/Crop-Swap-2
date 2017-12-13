@@ -1,16 +1,40 @@
-var $newCropInfo = $('#submit-crop');
-$newCropInfo.on('click', function(event) {
+var currentUser = JSON.parse(localStorage.getItem("currentUserKey"));
+
+$('#new-crop').submit(function(event) {
   event.preventDefault();
-  var currentUserId = JSON.parse(localStorage.getItem("currentUserKey")).id;
+  console.log(event.target.crop.value);
+  
   let data = {
-    user_id: currentUserId,
-    crop_name: event.target.form.crop.value,
+    user_id: currentUser.id,
+    crop_name: $('#crop').val(),
     quantity_available: event.target.form.quantity.value, 
     quantity_reserved: 0, 
     crop_price: event.target.form.crop_price.value
   }
-  $.post('/crops', data);
+  $.post('/crops', data)
+  .then(function() {
+    $('#user-produce').append(`<p> ${data.crop_name}</p>`);
+  });
 });
+
+$(document).ready(function() {
+  $('<form>').fadeIn().appendTo('#profile-container');
+  $('<fieldset>').appendTo('#profile-container').attr('id', 'profile-fieldset');
+  $('<legend>').appendTo('#profile-container').html("Profile Info");
+  
+  $('<label>').appendTo('#profile-container').html(`First Name: ${currentUser.first_name}`);
+  
+  $('<label>').appendTo('#profile-container').html(`Last Name: ${currentUser.last_name}`);
+  
+  $('<label>').appendTo('#profile-container').html(`Neighborhood: ${currentUser.neighborhood_id}`);
+  
+  $('<label>').appendTo('#profile-container').html(`User Name: ${currentUser.user_name}`);
+});
+
+
+
+
+
 
 
 // 'use strict';

@@ -45,7 +45,7 @@ function createAccountForm() {
   var $inputC = $('<select>').appendTo('.new-user-div').attr("name", "neighborhood_id").addClass('neighborhoodDropDown');
 
   neighborhoods.forEach(function (element) {
-      var $option = $('<option>').attr('value', element.neighborhood_id).text(element.neighborhood_name)
+    var $option = $('<option>').attr('value', element.neighborhood_id).text(element.neighborhood_name)
     $('.neighborhoodDropDown').append($option)
   })
 
@@ -62,14 +62,15 @@ function createAccountForm() {
 
   // function to submit user details into the user objects and clear the new user form from the screen
   $newFormButton.on('click', function(event) {
-    event.preventDefault()
+    event.preventDefault();
+    console.log(event.target.form.neighborhood_id.value);
     let data = {
       first_name: event.target.form.firstName.value,
       last_name: event.target.form.lastName.value,
       neighborhood_id: event.target.form.neighborhood_id.value,
       user_name: event.target.form.userName.value,
       password: event.target.form.password.value,
-    }
+    };
 
     $.post('/user', data)
     .then(function(newData) {
