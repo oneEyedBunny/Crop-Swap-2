@@ -1,44 +1,34 @@
-var $newCropInfo = $('#submit-crop');
-$newCropInfo.on('click', function(event) {
+var currentUser = JSON.parse(localStorage.getItem("currentUserKey"));
+
+$('#new-crop').submit(function(event) {
   event.preventDefault();
-  var currentUserId = JSON.parse(localStorage.getItem("currentUserKey")).id;
+  console.log(event.target.crop.value);
+  
   let data = {
-    user_id: currentUserId,
-    crop_name: event.target.form.crop.value,
+    user_id: currentUser.id,
+    crop_name: $('#crop').val(),
     quantity_available: event.target.form.quantity.value, 
     quantity_reserved: 0, 
     crop_price: event.target.form.crop_price.value
   }
   $.post('/crops', data)
-  .then(function(cropField) {
-    $.get('crops', function(request,response) {
-      client.query('SELECT crop_name, quantity_available, crop_price FROM crops;')
-    })
+  .then(function() {
+    $('#user-produce').append(`<p> ${data.crop_name}</p>`);
+  });
 });
-
-app.get('/crops', function(request, response) {
-  client.query('SELECT crop_name, quantity_available, crop_price FROM crops;')
-  .then(function(data) {
-    response.send(data.rows)
-  })
-})
 
 $(document).ready(function() {
   $('<form>').fadeIn().appendTo('#profile-container');
   $('<fieldset>').appendTo('#profile-container').attr('id', 'profile-fieldset');
   $('<legend>').appendTo('#profile-container').html("Profile Info");
-
-  var firstName = JSON.parse(localStorage.getItem("currentUserKey")).first_name;
-  $('<label>').appendTo('#profile-container').html(`First Name: ${firstName}`);
   
-  var lastName = JSON.parse(localStorage.getItem("currentUserKey")).last_name;
-  $('<label>').appendTo('#profile-container').html(`Last Name: ${lastName}`);
+  $('<label>').appendTo('#profile-container').html(`First Name: ${currentUser.first_name}`);
   
-  var neighborhood = JSON.parse(localStorage.getItem("currentUserKey")).neighborhood;
-  $('<label>').appendTo('#profile-container').html(`Neighborhood: ${neighborhood}`);
+  $('<label>').appendTo('#profile-container').html(`Last Name: ${currentUser.last_name}`);
   
-  var userName = JSON.parse(localStorage.getItem("currentUserKey")).user_name;
-  $('<label>').appendTo('#profile-container').html(`User Name: ${user_name}`);
+  $('<label>').appendTo('#profile-container').html(`Neighborhood: ${currentUser.neighborhood_id}`);
+  
+  $('<label>').appendTo('#profile-container').html(`User Name: ${currentUser.user_name}`);
 });
 
 

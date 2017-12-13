@@ -76,6 +76,9 @@ app.post('/crops', function(request, response) {
     request.body.crop_price,
   ]
 )
+.then(function(data) {
+  response.send(data.rows);
+})
 .catch(function(err) {
   console.error(err)
 })
