@@ -117,10 +117,8 @@ fieldset {
 }
 
 /*the actual form that lets a user create a profile*/
-#new-user-info {
+#new-user-info{
   font-size: 15px;
-  text-align: center;
-  display: float;
   position: relative;
   width:350px;
   -webkit-animation: fadein 3s; /* Safari, Chrome and Opera > 12.1 */
@@ -129,17 +127,29 @@ fieldset {
   -o-animation: fadein 3s; /* Opera < 12.1 */
   animation: fadein 3s; ease in;
 }
-
-#new-user-info input {
-  float: right;
+.new-user-div {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
 }
 
-#new-user-info label{
-  float: left;
+.new-user-div input, .new-user-div select {
+  width: 50%;
+  margin: 1em 0;
 }
 
-#new-user-info .new-profile-submit-button {
+.new-user-div label{
+  width: 40%;
+  margin: 1em 0;
+}
+
+.new-user-div .new-profile-submit-button {
   float: none;
+}
+.new-profile-submit-button {
+  display: block;
+  margin: 10% auto;
+  font-size: 15px;
 }
 
 @keyframes fadein {
