@@ -11,13 +11,3 @@ $.get('/crops').then(function(cropData) {
     })
 });
 }
-
-
-// function handleCrops() {
-//   $('#produce-location-options').change(function() {
-//     var selectedCrop = $('#produce-location-options option:selected').text();
-//     $.get(`/locations/${selectedCrop}`).then(function(locationData) {
-//
-//     })
-//   })
-// }

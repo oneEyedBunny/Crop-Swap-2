@@ -111,7 +111,7 @@ app.post('/user', function(request, response) {
   .then(function(data) {
     console.log("new id", data.rows[0].user_id.toString());
     response.status(200).send(data.rows[0]);
-    
+
   })
   .catch(function(err) {
     console.error(err)
