@@ -120,7 +120,7 @@ app.post('/user', function(request, response) {
 
 app.get('/locations/:cropName', function(request, response) {
   client.query(`
-    SELECT neighborhood_name, address, swap_day, swap_time
+    SELECT users.user_id, users.first_name, neighborhood_name, address, swap_day, swap_time
     FROM neighborhood
     INNER JOIN users ON users.neighborhood_id = neighborhood.neighborhood_id
     INNER JOIN crops ON crops.user_id = users.user_id

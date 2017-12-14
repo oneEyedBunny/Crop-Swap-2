@@ -3,6 +3,11 @@
 var map;
 var marker;
 
+////////////////////
+var markers = [];
+////////////////////
+
+
 function initMap() {
   var portland = {lat: 45.5231, lng: -122.6765};
 
@@ -13,12 +18,15 @@ function initMap() {
   })
 };
 
+
+//function to hanlde click from user selectin a crop
 function handleCrops() {
   $('#produce-location-options').change(function() {
     var selectedCrop = $('#produce-location-options option:selected').text();
     console.log(selectedCrop);
     $.get(`/locations/${selectedCrop}`).then(function(locationData) {
       console.log(locationData);
+      deleteMarkers();
       locationData.forEach(function (location) {
         addMarker(location);
       })
@@ -26,6 +34,8 @@ function handleCrops() {
   })
 }
 
+
+//function to add a marker on the map depending on the selected crop
 function addMarker(location) {
   var geocoder = new google.maps.Geocoder();
 
@@ -41,13 +51,16 @@ function addMarker(location) {
         title: location.neighborhood_name
       });
 
+////////////////////
+      markers.push(marker);
+////////////////////
+
+
       var contentString = '<div id="content">' + `<h1 id="address">${location.address}</h1>` + '</div>'
       + `<h4 id="swap_day">${location.swap_day}<h4>` + `<h4 id="swap_time">${location.swap_time}<h4>`;
       var infowindow = new google.maps.InfoWindow({
         content: contentString
       });
-
-      // console.log(marker);
 
       marker.addListener('click', function() {
         infowindow.open(map, marker);
@@ -55,6 +68,24 @@ function addMarker(location) {
     }
   });
 }
+
+////////////////////
+function setMapOnAll(map) {
+        for (var i = 0; i < markers.length; i++) {
+          markers[i].setMap(map);
+        }
+      }
+
+function clearMarkers() {
+      setMapOnAll(null);
+    }
+
+function deleteMarkers() {
+       clearMarkers();
+       markers = [];
+     }
+
+////////////////////
 
 $(document).ready(function() {
   initMap();
