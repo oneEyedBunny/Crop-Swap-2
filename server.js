@@ -137,3 +137,20 @@ app.get('/locations/:cropName', function(request, response) {
     console.error(err)
   })
 })
+
+app.get('/crops/:user', function (request, response) {
+  client.query(`
+    SELECT crop_name, quantity_available, crop_price FROM crops
+    WHERE user_id = $1;
+    `,
+  [
+    request.params.user,
+  ]
+)
+.then(function(data) {
+  response.send(data.rows)
+})
+.catch(function(err) {
+  console.error(err)
+})
+})

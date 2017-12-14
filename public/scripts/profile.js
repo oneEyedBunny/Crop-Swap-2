@@ -1,23 +1,31 @@
 var currentUser = JSON.parse(localStorage.getItem("currentUserKey"));
+let neighborhoods= [];
 
 $('#new-crop').submit(function(event) {
   event.preventDefault();
-  console.log(event.target.crop.value);
+  $('#user-produce').append(`${event.target.crop.value}, with a quantity of ${event.target.quantity.value}, at a price of $${event.target.crop_price.value}. `);
   
   let data = {
     user_id: currentUser.id,
     crop_name: $('#crop').val(),
-    quantity_available: event.target.form.quantity.value, 
+    quantity_available: event.target.quantity.value, 
     quantity_reserved: 0, 
-    crop_price: event.target.form.crop_price.value
+    crop_price: event.target.crop_price.value
   }
   $.post('/crops', data)
   .then(function() {
-    $('#user-produce').append(`<p> ${data.crop_name}</p>`);
+    $.get(`/crops/${currentUser.id}`,)
+    $('#user-produce').append(`<p> ${results.crop_name}</p>`);
   });
 });
 
-$(document).ready(function() {
+function profilePopulate() {
+  let nbhd = neighborhoods.find(function(neighborhood) {
+    return(neighborhood.neighborhood_id == currentUser.neighborhood_id);
+  });  
+
+  console.log('nbhd',nbhd.neighborhood_name);
+
   $('<form>').fadeIn().appendTo('#profile-container');
   $('<fieldset>').appendTo('#profile-container').attr('id', 'profile-fieldset');
   $('<legend>').appendTo('#profile-container').html("Profile Info");
@@ -26,13 +34,24 @@ $(document).ready(function() {
   
   $('<label>').appendTo('#profile-container').html(`Last Name: ${currentUser.last_name}`);
   
-  $('<label>').appendTo('#profile-container').html(`Neighborhood: ${currentUser.neighborhood_id}`);
+  $('<label>').appendTo('#profile-container').html(`Neighborhood: ${nbhd.neighborhood_name}`);
   
   $('<label>').appendTo('#profile-container').html(`User Name: ${currentUser.user_name}`);
-});
+};
 
+$(document).ready(function() {
+  $.get('/neighborhoods').then(function(neighborhoodList) {
+    console.log(neighborhoodList);
+    neighborhoods= neighborhoodList;
+    
+    // }).then(function() {
+      profilePopulate();
+    
+  })
+})
 
-
+  
+  
 
 
 
