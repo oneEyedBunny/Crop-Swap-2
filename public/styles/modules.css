@@ -260,19 +260,11 @@ h1 {
     justify-content: space-around;
 }
 
-#inv-intro {
-    color: #032559;
-    font-size: 45px;
-    text-align: center;
-    margin-top: 175px;
-}
-
-#address-list {
-    min-width: 230px;
-    color: #564e58;
-    font-size: 24px;
-    font-weight: bold;
-    margin-top: 32px;
+#swap-title {
+  color: #032559;
+  font-size: 45px;
+  text-align: center;
+  margin-top: 175px;
 }
 
 #swap-fieldset {
@@ -286,9 +278,17 @@ h1 {
     padding-top: 0px;
 }
 
+#crop-seller {
+    min-width: 230px;
+    color: #564e58;
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 32px;
+}
+
 #map {
   width: 100%;
   height: 400px;
   margin-right: 20px;
-  
+
 }
