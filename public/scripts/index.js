@@ -87,14 +87,18 @@ function loginUser() {
   let form = document.login_user;
   let userNameInput = form.userName.value;
   let passwordInput = form.password.value;
-  let userMatch = userProfile.find (function (profile) {
-    return((profile.userName == userNameInput) && (profile.password == passwordInput))
+  //let userMatch = userProfile.find (function (profile) {
+  $.get('/user').then(function(profiles) {
+    userMatch = profiles.find( function(profile) {
+      return ((profile.user_name == userNameInput) && (profile.password == passwordInput))
+    }
+    );
+    if(!userMatch) {
+      let $instructions = $('<p>').appendTo('#profile-forms').html("No account found. Please create an account below.");
+      createAccountForm ();
+    } else {
+      localStorage.setItem("currentUserKey", JSON.stringify(userMatch)); //adds to local storage
+      window.location = "profile.html";
+    }
   });
-  if(!userMatch) {
-    let $instructions = $('<p>').appendTo('#profile-forms').html("No account found. Please create an account below.");
-    createAccountForm ();
-  } else {
-    localStorage.setItem("currentUserKey", JSON.stringify(userMatch)); //adds to local storage
-    window.location = "profile.html";
-  }
 }
