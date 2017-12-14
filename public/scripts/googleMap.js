@@ -1,6 +1,7 @@
 'use strict'
 
 var map;
+var marker = new google.maps.Marker();
 
 function initMap() {
   var portland = {lat: 45.5231, lng: -122.6765};
@@ -41,9 +42,21 @@ function addMarker(location) {
   });
 }
 
+function infoWindow () {
+  var contentString = '<div id="content"' + '<h1 id="firstHeading">Portland</h1>' + '</div>';
+
+  var infowindow = new google.maps.InfoWindow({
+    content: contentString
+  });
+
+  marker.addListener('click', function() {
+    infowindow.open(map, marker);
+  });
+}
 
 
 $(document).ready(function() {
   initMap();
   handleCrops();
+  infoWindow();
 });
