@@ -4,12 +4,12 @@ let neighborhoods= [];
 $('#new-crop').submit(function(event) {
   event.preventDefault();
   $('#user-produce').append(`${event.target.crop.value}, with a quantity of ${event.target.quantity.value}, at a price of $${event.target.crop_price.value}. `);
-  
+
   let data = {
     user_id: currentUser.id,
     crop_name: $('#crop').val(),
-    quantity_available: event.target.quantity.value, 
-    quantity_reserved: 0, 
+    quantity_available: event.target.quantity.value,
+    quantity_reserved: 0,
     crop_price: event.target.crop_price.value
   }
   $.post('/crops', data)
@@ -22,36 +22,38 @@ $('#new-crop').submit(function(event) {
 function profilePopulate() {
   let nbhd = neighborhoods.find(function(neighborhood) {
     return(neighborhood.neighborhood_id == currentUser.neighborhood_id);
-  });  
+  });
 
   console.log('nbhd',nbhd.neighborhood_name);
 
-  $('<form>').fadeIn().appendTo('#profile-container');
-  $('<fieldset>').appendTo('#profile-container').attr('id', 'profile-fieldset');
-  $('<legend>').appendTo('#profile-container').html("Profile Info");
-  
-  $('<label>').appendTo('#profile-container').html(`First Name: ${currentUser.first_name}`);
-  
-  $('<label>').appendTo('#profile-container').html(`Last Name: ${currentUser.last_name}`);
-  
-  $('<label>').appendTo('#profile-container').html(`Neighborhood: ${nbhd.neighborhood_name}`);
-  
-  $('<label>').appendTo('#profile-container').html(`User Name: ${currentUser.user_name}`);
+  $('<form>').fadeIn().appendTo('#profile-container').attr('id', 'profile-form');
+  $('<fieldset>').appendTo('#profile-form').attr('id', 'profile-fieldset');
+  $('<legend>').appendTo('#profile-fieldset').html("Profile Info");
+  $('<div>').appendTo('#profile-fieldset').addClass('profile-div');
+
+  $('.profile-div').append('<label>First Name:</label>').append(`<span>${currentUser.first_name}`);
+
+  $('.profile-div').append('<label>Last Name:</label>').append(`<span>${currentUser.last_name}`);
+
+  $('.profile-div').append('<label>Neighborhood:</label>').append(`<span>${nbhd.neighborhood_name}`);
+
+  $('.profile-div').append('<label>User Name:</label>').append(`<span>${currentUser.user_name}`);
+
 };
 
 $(document).ready(function() {
   $.get('/neighborhoods').then(function(neighborhoodList) {
     console.log(neighborhoodList);
     neighborhoods= neighborhoodList;
-    
+
     // }).then(function() {
       profilePopulate();
-    
+
   })
 })
 
-  
-  
+
+
 
 
 
@@ -98,13 +100,13 @@ $(document).ready(function() {
 //        var $userNeighborhood = $('label').text('Neighborhood: ');
 //        container.append($userNeighborhood);
 //        var $neighborhoodSpan = $('span').attr('contenteditable', true).text(currentUser.neighborhood).on('input', handleNeighborhood);
-    
+
 
 //   function handleUserName (event) {
 //     currentUser.userName = event.target.innerText;
 //     localStorage.setItem("currentUserKey", JSON.stringify(currentUser));
 //   }
-  
+
 //   function handleNeighborhood (event) {
 //     currentUser.neighborhood = event.target.innerText;
 //     localStorage.setItem("currentUserKey", JSON.stringify(currentUser));
@@ -114,7 +116,7 @@ $(document).ready(function() {
 //     currentUser.firstName = event.target.innerText;
 //     localStorage.setItem("currentUserKey", JSON.stringify(currentUser));
 //   }
-  
+
 //   function handleLastName (event) {
 //     currentUser.lastName = event.target.innerText;
 //     localStorage.setItem("currentUserKey", JSON.stringify(currentUser));
@@ -131,6 +133,6 @@ $(document).ready(function() {
 //             var base64image = reader.results;
 //             $('user-picture').src(base64image);
 //             localStorage.setItem('currentUserKey', JSON.stringify(currentUser));
-//         }) 
+//         })
 //     }
 // }
