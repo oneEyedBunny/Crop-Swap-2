@@ -18,17 +18,22 @@ header ul {
 header li {
   display: inline-block;
   text-shadow: 2px;
-  font-size: 20px;
+  font-size: 30px;
   margin: 10px;
   padding: 4px;
+  color: #0D4054;
 }
 
 header li:hover {
   opacity: 1;
   background-color: #EBA15A;
   transition: all 0.25s;
-  color: #564E58;
+  color: #0D4054;;
 }
+
+/* header li:visited {
+    color: 0D4054;;
+} */
 
 /* ///////////     INDEX PAGE      /////////////////// */
 
@@ -38,7 +43,7 @@ header li:hover {
   letter-spacing: 3px;
   font-weight: 100;
   text-align: center;
-  color: #78AB46;
+  color: #4AB29F;
   font-size: 185px;
   text-shadow: 5px 5px #031D44;
   margin: 150px 25px 0px 25px;
@@ -50,7 +55,8 @@ header li:hover {
   text-shadow: none;
   text-align: center;
   font-weight: normal;
-  color: #564E58;
+  /* color: #564E58; */
+  color: #0D4054;
   font-style: italic;
   margin: 45px auto 0px auto;
   width: 750px;
@@ -75,14 +81,16 @@ header li:hover {
 .what-to-do{
   display:flex;
   justify-content: space-around;
-  background-color: #78AB46;
+  /* background-color: #c78262; */
+  background-color: rgba(199, 130, 98, 1);
   padding:50px 50px 100px 50px;
   margin-top: 200px;
+  background-image: url("https://www.transparenttextures.com/patterns/tileable-wood-colored.png");
 }
 
 #welcome-list {
   font-size: 23px;
-  color: #564E58;
+  color: #0D4054;
   font-weight: normal;
   list-style-type: none;
   margin-right: 200px;
@@ -93,20 +101,17 @@ header li:hover {
   border: 2px solid black;
   padding:20px;
   box-shadow:2px 2px 4px 5px #D3D3D3;
-  background-color: #EDA15A;
+  background-color: rgba(69,185,69,0.90);
 }
 
-/*This was desiged for the welcome.html, needs to be assiged a classs/ID in the JS*/
 fieldset {
-  background-color: #EBA15A;
+  background-color: rgba(69,185,69,0.90);
 }
-/*------------above-------------*/
-
 
 /*the button that triggers the new user form below*/
 #new-user {
   padding: 75px;
-  background-color: #EDA15A;
+  background-color: rgba(69,185,69,0.90);
   border-style: groove;
   box-shadow:2px 2px 4px 5px #D3D3D3;
 }
@@ -177,13 +182,24 @@ fieldset {
   color: #564E58;
 }
 
+.profile-div, .crop-input-div {
+display: flex;
+justify-content: space-between;
+flex-wrap: wrap;
+}
+
+.profile-div label, .profile-div span, .crop-input-div {
+  width: 40%;
+  margin:1em 0;
+}
+
 #profile-container {
   display: flex;
   flex-direction: column;
   padding: 20px;
   margin-left: 50px;
   border: 2px solid #032559;
-  background-color: #EBA15A;
+  background-color: rgba(69,185,69,0.90);
   opacity: .75;
 }
 
@@ -212,18 +228,6 @@ fieldset {
 }
 
 /* ////////////      CROP FORM      //////// */
-#new-crop {
-  width: 45%;
-  margin: 10% auto;
-  margin-left: 40%;
-}
-
-#new-crop label {
-  display: inline-block;
-  width: 50%;
-  font-size: 1.25em;
-  padding: 2%;
-}
 
 legend {
   text-align: center;
@@ -263,9 +267,9 @@ h1 {
 }
 
 #map {
-  width: 100%;
+  width: 90%;
   height: 400px;
-  margin: 0;
+  margin: 10% auto;
   padding: 0;
   border: 0;
   font-size: 100%;
@@ -276,7 +280,7 @@ h1 {
 #swap-main {
     /* justify-content: space-around; */
     position: relative;
-    background: #eba15a;
+    background-color: rgba(69,185,69,0.90);
     color: #564e58;
     width: 280px;
     height: 110px;
