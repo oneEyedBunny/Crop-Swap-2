@@ -140,7 +140,7 @@ app.get('/locations/:cropName', function(request, response) {
 
 app.get('/crops/:user', function (request, response) {
   client.query(`
-    SELECT crop_name, quantity_available, crop_price FROM crops
+    SELECT crop_id, crop_name, quantity_available, crop_price FROM crops
     WHERE user_id = $1;
     `,
     [
@@ -173,4 +173,21 @@ app.get('/crop-sellers/:crop', function (request, response) {
   .catch(function(err) {
     console.error(err)
   })
+})
+
+app.delete('/crops/:id', function (request, response) {
+  client.query(`
+    DELETE FROM crops
+    WHERE crop_id = $1;
+    `,
+  [
+    request.params.id,
+  ]
+)
+.then(function() {
+  response.send('deleted')
+})
+.catch(function(err) {
+  console.error(err)
+})
 })
