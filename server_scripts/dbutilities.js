@@ -115,14 +115,14 @@ module.exports = {
                       client.query(
                       `INSERT INTO
                       users (first_name, last_name, neighborhood_id, user_name, password)
-                      SELECT 'jimmy','john', neighborhood_id,'johnjohn', 'psu123'
+                      SELECT 'Nick','Hoszko', neighborhood_id,'nhoszko', 'NH123'
                       FROM neighborhood
-                      WHERE neighborhood_name= 'PSU'
+                      WHERE neighborhood_name= 'Northeast'
                       ON CONFLICT DO NOTHING;
 
                       INSERT INTO
                       users (first_name, last_name, neighborhood_id, user_name, password)
-                      SELECT 'nick','hoszko', neighborhood_id,'hoszie', 'nojiri123'
+                      SELECT 'Saundra','Ultreras', neighborhood_id,'sandraultreras', 'SU123'
                       FROM neighborhood
                       WHERE neighborhood_name= 'Sellwood'
                       ON CONFLICT DO NOTHING;`
