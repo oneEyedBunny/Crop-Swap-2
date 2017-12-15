@@ -263,19 +263,19 @@ h1 {
 }
 
 #map {
-  width: 100%;
+  width: 50%;
   height: 400px;
   margin: 0;
   padding: 0;
   border: 0;
   font-size: 100%;
   font: inherit;
-  vertical-align: baseline;
+  /* vertical-align: baseline; */
 }
 
 #swap-main {
     /* justify-content: space-around; */
-    position: relative;
+    /* position: relative; */
     background: #eba15a;
     color: #564e58;
     width: 280px;
@@ -284,8 +284,8 @@ h1 {
     font-weight: bold;
     text-align: center;
     padding: 20px;
-    margin-left: 647px;
-    margin-top: -128px;
+    margin-left: 65%;
+    /* margin-top: -128px; */
     border: 9px solid #f4f4f4;
     border-color: white;
     border-width: 7px;
@@ -302,7 +302,7 @@ h1 {
   cursor: pointer;
 }
 
-#seller-list {
+#sellers-table {
     min-width: 230px;
     color: #564e58;
     font-size: 24px;

@@ -90,14 +90,14 @@ module.exports = {
               crops(user_id, crop_name, quantity_available, quantity_reserved, crop_price)
               SELECT user_id,'carrots', 10, 4, 1
               FROM users
-              WHERE first_name = 'jimmy'
+              WHERE first_name = 'Sandra'
               ON CONFLICT DO NOTHING;
 
               INSERT INTO
               crops(user_id, crop_name, quantity_available, quantity_reserved, crop_price)
               SELECT user_id,'kale', 8, 2, 2
               FROM users
-              WHERE first_name = 'nick'
+              WHERE first_name = 'Nick'
               ON CONFLICT DO NOTHING;`
             )
                     //   })
@@ -122,7 +122,7 @@ module.exports = {
 
                       INSERT INTO
                       users (first_name, last_name, neighborhood_id, user_name, password)
-                      SELECT 'Saundra','Ultreras', neighborhood_id,'sandraultreras', 'SU123'
+                      SELECT 'Sandra','Ultreras', neighborhood_id,'sandraultreras', 'SU123'
                       FROM neighborhood
                       WHERE neighborhood_name= 'Sellwood'
                       ON CONFLICT DO NOTHING;`
