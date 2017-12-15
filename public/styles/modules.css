@@ -274,7 +274,7 @@ h1 {
   border: 0;
   font-size: 100%;
   font: inherit;
-  vertical-align: baseline;
+  /* vertical-align: baseline; */
 }
 
 #swap-main {
@@ -288,8 +288,8 @@ h1 {
     font-weight: bold;
     text-align: center;
     padding: 20px;
-    margin-left: 647px;
-    margin-top: -128px;
+    margin-left: 65%;
+    /* margin-top: -128px; */
     border: 9px solid #f4f4f4;
     border-color: white;
     border-width: 7px;
@@ -306,7 +306,7 @@ h1 {
   cursor: pointer;
 }
 
-#seller-list {
+#sellers-table {
     min-width: 230px;
     color: #564e58;
     font-size: 24px;

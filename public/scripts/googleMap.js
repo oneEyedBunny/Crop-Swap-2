@@ -26,6 +26,21 @@ function handleCrops() {
         addMarker(location);
       })
     })
+    $.get(`/crop-sellers/${selectedCrop}`).then(function(sellers) {
+      console.log(sellers);
+      var $tbody = $('#sellers-table tbody');
+      $tbody.html('');
+
+      sellers.forEach(function (seller) {
+      $tbody.append(`
+          <tr>
+            <td>${seller.first_name}</td>
+            <td>${seller.quantity_available}</td>
+            <td>$${seller.crop_price}</td>
+          </tr>
+          `);
+      });
+    })
   })
 }
 
@@ -59,10 +74,6 @@ function addMarker(location) {
 
       marker.addListener('click', function() {
         infowindow.open(map, marker);
-
-        // var sellerList = '<div id="seller-list">'
-        // + `<ul id="address">${location.user_id_seller}</ul>`
-        // + '</div>';
       });
     }
   });
@@ -84,7 +95,6 @@ function deleteMarkers() {
        clearMarkers();
        markers = [];
      }
-
 
 
 $(document).ready(function() {
