@@ -2,24 +2,6 @@
 var currentUser = JSON.parse(localStorage.getItem("currentUserKey"));
 let neighborhoods= [];
 
-///   HANDLEBARS    ///
-// $('#submit-crop').submit(function() {
-//   var theTemplateScript = $('#user-produce-handlebars').html();
-//   var theTemplate = Handlebars.compile(theTemplateScript);
-
-//   let data = {
-//     user_id: currentUser.id,
-//     crop_name: $('#crop').val(),
-//     quantity_available: event.target.quantity.value, 
-//     quantity_reserved: 0, 
-//     crop_price: event.target.crop_price.value
-//   }
- 
-
-//   var theCompiledHtml = theTemplate(data);
-//   $('table').html(theCompiledHtml);
-// });
-
 ///   ADDING CROP TO PROFILE PAGE   ///
 var theTemplateScript = $('#user-produce-handlebars').text();
 var theTemplate = Handlebars.compile(theTemplateScript);
