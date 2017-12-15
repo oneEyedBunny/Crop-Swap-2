@@ -8,14 +8,16 @@ var theTemplate = Handlebars.compile(theTemplateScript);
 
 $('#new-crop').submit(function(event) {
   event.preventDefault();
+
   
   // $('#user-produce').append(`${event.target.crop.value}, with a quantity of ${event.target.quantity.value}, at a price of $${event.target.crop_price.value}.<br> `);
   
+
   let data = {
     user_id: currentUser.user_id,
     crop_name: $('#crop').val(),
-    quantity_available: event.target.quantity.value, 
-    quantity_reserved: 0, 
+    quantity_available: event.target.quantity.value,
+    quantity_reserved: 0,
     crop_price: event.target.crop_price.value
   }
  
@@ -36,32 +38,35 @@ $('#new-crop').submit(function(event) {
 function profilePopulate() {
   let nbhd = neighborhoods.find(function(neighborhood) {
     return(neighborhood.neighborhood_id == currentUser.neighborhood_id);
-  });  
+  });
 
   console.log('nbhd',nbhd.neighborhood_name);
 
-  $('<form>').fadeIn().appendTo('#profile-container');
-  $('<fieldset>').appendTo('#profile-container').attr('id', 'profile-fieldset');
-  $('<legend>').appendTo('#profile-container').html("Profile Info");
-  
-  $('<label>').appendTo('#profile-container').html(`First Name: ${currentUser.first_name}`);
-  
-  $('<label>').appendTo('#profile-container').html(`Last Name: ${currentUser.last_name}`);
-  
-  $('<label>').appendTo('#profile-container').html(`Neighborhood: ${nbhd.neighborhood_name}`);
-  
-  $('<label>').appendTo('#profile-container').html(`User Name: ${currentUser.user_name}`);
+  $('<form>').fadeIn().appendTo('#profile-container').attr('id', 'profile-form');
+  $('<fieldset>').appendTo('#profile-form').attr('id', 'profile-fieldset');
+  $('<legend>').appendTo('#profile-fieldset').html("Profile Info");
+  $('<div>').appendTo('#profile-fieldset').addClass('profile-div');
+
+  $('.profile-div').append('<label>First Name:</label>').append(`<span>${currentUser.first_name}`);
+
+  $('.profile-div').append('<label>Last Name:</label>').append(`<span>${currentUser.last_name}`);
+
+  $('.profile-div').append('<label>Neighborhood:</label>').append(`<span>${nbhd.neighborhood_name}`);
+
+  $('.profile-div').append('<label>User Name:</label>').append(`<span>${currentUser.user_name}`);
+
 };
 ///   GETTING NEIGHBORHOODS FROM DB   ///
 $(document).ready(function() {
   $.get('/neighborhoods').then(function(neighborhoodList) {
     console.log(neighborhoodList);
     neighborhoods= neighborhoodList;
-    
+
     // }).then(function() {
       profilePopulate();
-    
+
   })
+
   $.get(`/crops/${currentUser.user_id}`)
   .then(function(data) {
     
@@ -82,3 +87,6 @@ function removeCrop (id) {
     $(`#crop-id${id}`).remove();
   })
 }
+
+})
+

@@ -78,20 +78,20 @@ app.post('/crops', function(request, response) {
   client.query(
     `INSERT INTO crops(user_id, crop_name, quantity_available, quantity_reserved, crop_price)
     VALUES($1, $2, $3, $4, $5)`,
-  [
-    request.body.user_id,
-    request.body.crop_name,
-    request.body.quantity_available,
-    request.body.quantity_reserved,
-    request.body.crop_price,
-  ]
-)
-.then(function(data) {
-  response.send(data.rows);
-})
-.catch(function(err) {
-  console.error(err)
-})
+    [
+      request.body.user_id,
+      request.body.crop_name,
+      request.body.quantity_available,
+      request.body.quantity_reserved,
+      request.body.crop_price,
+    ]
+  )
+  .then(function(data) {
+    response.send(data.rows);
+  })
+  .catch(function(err) {
+    console.error(err)
+  })
 });
 
 app.post('/user', function(request, response) {
@@ -127,7 +127,7 @@ app.get('/locations/:cropName', function(request, response) {
     WHERE crops.crop_name = $1;
     `,
     [
-    request.params.cropName,
+      request.params.cropName,
     ]
   )
   .then(function(data) {
@@ -143,16 +143,36 @@ app.get('/crops/:user', function (request, response) {
     SELECT crop_id, crop_name, quantity_available, crop_price FROM crops
     WHERE user_id = $1;
     `,
-  [
-    request.params.user,
-  ]
-)
-.then(function(data) {
-  response.send(data.rows)
+    [
+      request.params.user,
+    ]
+  )
+  .then(function(data) {
+    response.send(data.rows)
+  })
+  .catch(function(err) {
+    console.error(err)
+  })
 })
-.catch(function(err) {
-  console.error(err)
-})
+
+app.get('/crop-sellers/:crop', function (request, response) {
+  client.query(`
+    SELECT users.first_name, users.last_name, crops.quantity_available, crops.crop_price, neighborhood.address
+    FROM crops
+    INNER JOIN users ON crops.user_id = users.user_id
+    INNER JOIN neighborhood ON users.neighborhood_id = neighborhood.neighborhood_id
+    WHERE crop_name = $1;
+    `,
+    [
+      request.params.crop,
+    ]
+  )
+  .then(function(data) {
+    response.send(data.rows)
+  })
+  .catch(function(err) {
+    console.error(err)
+  })
 })
 
 app.delete('/crops/:id', function (request, response) {

@@ -13,35 +13,47 @@
     </ul>
   </header>
   <body>
-    <img src="images/swapBackground.jpg" id=swap-photo>
-    <h1 id="swap-title"> See what's in your neighbor's backyard! </h1>
+    <main id="swap-page">
+      <img src="images/swapBackground.jpg" id=swap-photo>
+      <h1 id="swap-title"> See what's in your neighbor's backyard! </h1>
 
-    <div id="map">
-    </div>
+      <div id="map">
+      </div>
 
-    <div id="swap-main">
-      <fieldset id="swap-fieldset">
-        <h4> Tell us what produce you're looking for and we'll tell you what neighborhood it's in: <br></h4>
-        <select name="produce-options" id="produce-location-options">
-          <option value="Finder">Please choose a crop:</option>
-        </select>
-      </fieldset>
-    </div>
+      <div>
+        <div id="swap-main">
+            <p>Find a Crop to Swap:<br></p>
+            <select name="Options" id="crop-options">
+              <option value="Finder" id="crop-search">SELECT FROM THE OPTIONS</option>
+            </select>
+        </div>
 
-    <div >
-      <ul id="crop-seller">
-        <li>Test Sellers</li>
-        <li>Test Sellers</li>
-        <li>Test Sellers</li>
-      </ul>
-    </div>
+        <div >
+          <table id="sellers-table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Quantity</th>
+                <th>Price</th>
+              </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+            </table>
+        </div>
+      </div>
 
 
-    <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDIDAuYH1IEaK8nAK76AzHOWJErJvip69U&callback=initMap"></script>
-    <script type="text/javascript" src="scripts/googleMap.js"></script>
-    <script type="text/javascript" src="scripts/app.js"></script>
-    <script type="text/javascript" src="scripts/swap.js"></script>
 
+
+
+      <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
+      <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDIDAuYH1IEaK8nAK76AzHOWJErJvip69U&callback=initMap"></script>
+      <script type="text/javascript" src="scripts/googleMap.js"></script>
+      <script type="text/javascript" src="scripts/app.js"></script>
+      <script type="text/javascript" src="scripts/swap.js"></script>
+
+    </main>
   </body>
 </html>

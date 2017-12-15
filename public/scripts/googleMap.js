@@ -8,16 +8,16 @@ function initMap() {
   var portland = {lat: 45.5231, lng: -122.6765};
 
   map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 10,
+    zoom: 11,
     center: portland,
     // mapTypeId: google.maps.MapTypeId.ROADMAP
   })
 };
 
-//function to hanlde click from user selectin a crop
+//function to hanlde click from user selecting a crop
 function handleCrops() {
-  $('#produce-location-options').change(function() {
-    var selectedCrop = $('#produce-location-options option:selected').text();
+  $('#crop-options').change(function() {
+    var selectedCrop = $('#crop-options option:selected').text();
     console.log(selectedCrop);
     $.get(`/locations/${selectedCrop}`).then(function(locationData) {
       console.log(locationData);
@@ -25,6 +25,21 @@ function handleCrops() {
       locationData.forEach(function (location) {
         addMarker(location);
       })
+    })
+    $.get(`/crop-sellers/${selectedCrop}`).then(function(sellers) {
+      console.log(sellers);
+      var $tbody = $('#sellers-table tbody');
+      $tbody.html('');
+
+      sellers.forEach(function (seller) {
+      $tbody.append(`
+          <tr>
+            <td>${seller.first_name}</td>
+            <td>${seller.quantity_available}</td>
+            <td>$${seller.crop_price}</td>
+          </tr>
+          `);
+      });
     })
   })
 }
@@ -48,7 +63,7 @@ function addMarker(location) {
       markers.push(marker);
 
       var contentString = '<div id="content">'
-      + `<h1 id="address">${location.neighborhood_name}</h1>` 
+      + `<h1 id="address">${location.neighborhood_name}</h1>`
       + `<h1 id="address">${location.address}</h1>`
       + `<h4 id="swap_day">${location.swap_day}<h4>`
       + `<h4 id="swap_time">${location.swap_time}<h4>`
@@ -80,7 +95,6 @@ function deleteMarkers() {
        clearMarkers();
        markers = [];
      }
-
 
 
 $(document).ready(function() {
