@@ -67,9 +67,9 @@ module.exports = {
               neighborhood (neighborhood_name, address, swap_day, swap_time)
               VALUES
              ('Sellwood', '8300 SE 15th Ave, Portland, OR 97202', 'Saturday', '10AM-2PM'),
-             ('PSU', '1825 SW Broadway, Portland, OR 97201', 'Sunday', '12PM-4PM')
-             ('The Pearl', '1236 Marshall St, Portland, OR 97209', 'Thursday', '6PM-9PM')
-             ('Northeast', '2035 NE Alberta St, Portland, OR 97212', 'Monday', '5:30PM-9PM')
+             ('PSU', '1825 SW Broadway, Portland, OR 97201', 'Sunday', '12PM-4PM'),
+             ('The Pearl', '1236 Marshall St, Portland, OR 97209', 'Thursday', '6PM-9PM'),
+             ('Northeast', '2035 NE Alberta St, Portland, OR 97212', 'Monday', '5:30PM-9PM'),
              ('Southeast', '3203 SE Woodstock Blvd, Portland, OR 97202', 'Saturday', '11AM-1PM')
               ON CONFLICT DO NOTHING`
             )
@@ -115,14 +115,14 @@ module.exports = {
                       client.query(
                       `INSERT INTO
                       users (first_name, last_name, neighborhood_id, user_name, password)
-                      SELECT 'jimmy','john', neighborhood_id,'johnjohn', 'psu123'
+                      SELECT 'Nick','Hoszko', neighborhood_id,'nhoszko', 'NH123'
                       FROM neighborhood
-                      WHERE neighborhood_name= 'PSU'
+                      WHERE neighborhood_name= 'Northeast'
                       ON CONFLICT DO NOTHING;
 
                       INSERT INTO
                       users (first_name, last_name, neighborhood_id, user_name, password)
-                      SELECT 'nick','hoszko', neighborhood_id,'hoszie', 'nojiri123'
+                      SELECT 'Saundra','Ultreras', neighborhood_id,'sandraultreras', 'SU123'
                       FROM neighborhood
                       WHERE neighborhood_name= 'Sellwood'
                       ON CONFLICT DO NOTHING;`
