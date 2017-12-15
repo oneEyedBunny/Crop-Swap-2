@@ -1,24 +1,56 @@
+///   PUTTING LOCALSTORAGE IN VAR   ///
 var currentUser = JSON.parse(localStorage.getItem("currentUserKey"));
 let neighborhoods= [];
 
+///   HANDLEBARS    ///
+// $('#submit-crop').submit(function() {
+//   var theTemplateScript = $('#user-produce-handlebars').html();
+//   var theTemplate = Handlebars.compile(theTemplateScript);
+
+//   let data = {
+//     user_id: currentUser.id,
+//     crop_name: $('#crop').val(),
+//     quantity_available: event.target.quantity.value, 
+//     quantity_reserved: 0, 
+//     crop_price: event.target.crop_price.value
+//   }
+ 
+
+//   var theCompiledHtml = theTemplate(data);
+//   $('table').html(theCompiledHtml);
+// });
+
+///   ADDING CROP TO PROFILE PAGE   ///
+var theTemplateScript = $('#user-produce-handlebars').text();
+var theTemplate = Handlebars.compile(theTemplateScript);
+
 $('#new-crop').submit(function(event) {
   event.preventDefault();
-  $('#user-produce').append(`${event.target.crop.value}, with a quantity of ${event.target.quantity.value}, at a price of $${event.target.crop_price.value}. `);
+  
+  // $('#user-produce').append(`${event.target.crop.value}, with a quantity of ${event.target.quantity.value}, at a price of $${event.target.crop_price.value}.<br> `);
   
   let data = {
-    user_id: currentUser.id,
+    user_id: currentUser.user_id,
     crop_name: $('#crop').val(),
     quantity_available: event.target.quantity.value, 
     quantity_reserved: 0, 
     crop_price: event.target.crop_price.value
   }
+ 
+  
   $.post('/crops', data)
   .then(function() {
-    $.get(`/crops/${currentUser.id}`,)
-    $('#user-produce').append(`<p> ${results.crop_name}</p>`);
+    $.get(`/crops/${currentUser.user_id}`)
+    .then(function(data) {
+      var index = data.length -1;
+      console.log(data);
+      var theCompiledHtml = theTemplate(data[index]);
+      $('#table').before(`<tr>${theCompiledHtml}</tr>`);
+    })
   });
 });
 
+///   GETTING USER PROFILE  ///
 function profilePopulate() {
   let nbhd = neighborhoods.find(function(neighborhood) {
     return(neighborhood.neighborhood_id == currentUser.neighborhood_id);
@@ -38,7 +70,7 @@ function profilePopulate() {
   
   $('<label>').appendTo('#profile-container').html(`User Name: ${currentUser.user_name}`);
 };
-
+///   GETTING NEIGHBORHOODS FROM DB   ///
 $(document).ready(function() {
   $.get('/neighborhoods').then(function(neighborhoodList) {
     console.log(neighborhoodList);
@@ -48,89 +80,23 @@ $(document).ready(function() {
       profilePopulate();
     
   })
-})
-
-  
-  
-
-
-
-
-// 'use strict';
-
-// $(document).ready(function() {
-//     var currentUser = JSON.parse(localStorage.getItem("currentUserKey"));
-//     if (currentUser != null) {
-//        var container = $('#profile-container');
-//        var elPicture  = $('img');
-//        elPicture.id = "user-picture";
-//        elPicture.src = currentUser.img;
-//        container.append(elPicture);
-//        var elUserPicture = $('p');
-//        elUserPicture.html('Update your picture: ');
-//        container.append(elUserPicture);
-//        var elUpdatePicture = $('input').attr('type' ,'file' ,'accept' ,'.jpg, .jpeg, .png');
-//        container.append(elUpdatePicture);
-//        elUpdatePicture.on('change', handlePicture);
-
-//        var $firstLastName = $('p');
-//        nameLabel = $('label').text("Name: ");
-//        $firstLastName.append(nameLabel);
-
-//        var $firstName = $('span').attr('contenteditable', true).text(currentUser.firstName).on('input, handleFirstName');
-//        $firstLastName.append($firstName);
-
-//        var $lastName = $('span').attr('contenteditable',true).text(currentUser.lastName).on('input', handleLastName);
-//        $firstLastName.append($lastName);
-//        container.append($firstLastName);
-
-//        var $userName = $('p');
-//        container.append($userName);
-//        var $userNameLabel = $($userName).text('Username: ');
-//        $userName.append($userNameLabel);
-
-//        var $userNameSpan = $('span').attr('contenteditable', true).text(currentUser.userName);
-//        $userName.append($userNameSpan);
-//        $userNameSpan.on('input', handleUserName);
-
-//        var $neighborhood = $('p');
-//        container.append($neighborhood);
-//        var $userNeighborhood = $('label').text('Neighborhood: ');
-//        container.append($userNeighborhood);
-//        var $neighborhoodSpan = $('span').attr('contenteditable', true).text(currentUser.neighborhood).on('input', handleNeighborhood);
+  $.get(`/crops/${currentUser.user_id}`)
+  .then(function(data) {
     
+    data.forEach(function(item) {
+      var theCompiledHtml = theTemplate(item);
+      $('#table').before(`<tr>${theCompiledHtml}</tr>`);
+    });
+  })
+});
 
-//   function handleUserName (event) {
-//     currentUser.userName = event.target.innerText;
-//     localStorage.setItem("currentUserKey", JSON.stringify(currentUser));
-//   }
-  
-//   function handleNeighborhood (event) {
-//     currentUser.neighborhood = event.target.innerText;
-//     localStorage.setItem("currentUserKey", JSON.stringify(currentUser));
-//   }
-
-//   function handleFirstName (event) {
-//     currentUser.firstName = event.target.innerText;
-//     localStorage.setItem("currentUserKey", JSON.stringify(currentUser));
-//   }
-  
-//   function handleLastName (event) {
-//     currentUser.lastName = event.target.innerText;
-//     localStorage.setItem("currentUserKey", JSON.stringify(currentUser));
-//   }
-// };
-
-
-// function handlePicture(event) {
-//     if(event.target.files.length > 0) {
-//         var file = event.target.files[0];
-//         var reader = new FileReader();
-//         reader.readAsDataURL(file);
-//         reader.on('load', function() {
-//             var base64image = reader.results;
-//             $('user-picture').src(base64image);
-//             localStorage.setItem('currentUserKey', JSON.stringify(currentUser));
-//         }) 
-//     }
-// }
+function removeCrop (id) {
+  $.ajax({
+    url:`/crops/${id}`,
+    type: 'DELETE'})
+    
+  .then(function(response) {
+    console.log(response);
+    $(`#crop-id${id}`).remove();
+  })
+}

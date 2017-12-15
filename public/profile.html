@@ -3,6 +3,21 @@
     <head>
        <title>My Profile</title>
        <link rel="stylesheet" type="text/css" href="styles/base.css">
+       <script id="user-produce-handlebars" type="text/x-handlebars-template">
+        <div id="crop-template">
+          
+          
+            <tr id="crop-id{{crop_id}}">
+                
+                <td>{{crop_name}}</td>
+                <td>{{quantity_available}}</td>
+                <td>{{crop_price}}</td>
+                <td><button id="button" onclick="removeCrop({{crop_id}})">Remove Crop</button></td>
+                
+            </tr>
+          
+        </div>
+      </script>
     </head>
     <header class="header">
             <ul>
@@ -29,10 +44,6 @@
                         </fieldset>
                         <div id="submit"><input type="submit" value="Add New Crop" id="submit-crop"></div>
                     </form>
-                    <input type="button" value="See Credits Earned">
-                    <input type="button" value="See Credits Spent">
-                    <table id="credits-earned"></table>
-                    <table id="credits-spent"></table>
 
 
 
@@ -40,10 +51,25 @@
                     </div>
                     <div id="user-produce">
                 <h3>Here is the list of produce you're swaping:</h3>
+                    <table>
+                        <thead> <tr>
+                                <th>Crop</th>
+                                <th>Quantity</th>
+                                <th>Price</th>
+                                <th></th>   
+                            </tr>
+                        </thead>
+                        <tbody id="table">
+
+                        </tbody>
+                    </table>
                 </div>
         </main>
+        <script type="text/javascript" src="vendors/handlebars-v4.0.11.js"></script>
         <script type="text/javascript" src="vendors/jquery-3.2.1.min.js"></script>
         <script type="text/javascript" src="scripts/app.js"></script>
         <script type="text/javascript" src="scripts/profile.js"></script>
     </body>
 </html>
+
+
