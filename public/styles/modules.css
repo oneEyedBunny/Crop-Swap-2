@@ -255,40 +255,58 @@ h1 {
 }
 
 /* ////////////      SWAP PAGE    //////// */
-#swap-main {
-    display: flex;
-    justify-content: space-around;
-}
 
-#swap-title {
-  color: #032559;
-  font-size: 45px;
-  text-align: center;
-  margin-top: 175px;
-}
-
-#swap-fieldset {
-    color: #564e58;
-    font-size: 24px;
-    font-weight: bold;
-    height: 150px;
-    border: none;
-    margin-left: 35px;
-    margin-right: 10px;
-    padding-top: 0px;
-}
-
-#crop-seller {
-    min-width: 230px;
-    color: #564e58;
-    font-size: 24px;
-    font-weight: bold;
-    margin-top: 32px;
+#swap-page {
+  display: flex;
+  flex-direction: column;
+  margin-top: 130px;
 }
 
 #map {
   width: 100%;
   height: 400px;
-  margin-right: 20px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
 
+#swap-main {
+    /* justify-content: space-around; */
+    position: relative;
+    background: #eba15a;
+    color: #564e58;
+    width: 280px;
+    height: 110px;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    padding: 20px;
+    margin-left: 647px;
+    margin-top: -128px;
+    border: 9px solid #f4f4f4;
+    border-color: white;
+    border-width: 7px;
+    border-radius: 3px;
+}
+
+#swap-main select {
+  background: #9bd8d7;
+  border-bottom: 2px solid #b36d00;
+  color: #564e58;
+  width: 248px;
+  height: 35px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+#seller-list {
+    min-width: 230px;
+    color: #564e58;
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 32px;
+    list-style: none;
 }
