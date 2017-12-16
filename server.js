@@ -157,7 +157,7 @@ app.get('/crops/:user', function (request, response) {
 
 app.get('/crop-sellers/:crop', function (request, response) {
   client.query(`
-    SELECT users.first_name, users.last_name, crops.quantity_available, crops.crop_price, neighborhood.address
+    SELECT users.first_name, users.last_name, crops.crop_name, crops.quantity_available, crops.crop_price, neighborhood.address
     FROM crops
     INNER JOIN users ON crops.user_id = users.user_id
     INNER JOIN neighborhood ON users.neighborhood_id = neighborhood.neighborhood_id

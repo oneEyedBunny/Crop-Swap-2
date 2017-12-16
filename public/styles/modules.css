@@ -258,22 +258,82 @@ form fieldset {
   border-radius: 5px;
 }
 
-h1 {
+/* h1 {
   text-align: center;
-}
+} */
 
 /* ////////////      SWAP PAGE    //////// */
 
-#swap-page {
+#swap-title {
+  margin-top: 150px;
+  text-align: center;
+  color: #0D4054;
+  font-size: 45px;
+}
+
+#swap-main {
   display: flex;
-  flex-direction: column;
-  margin-top: 130px;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+#find-crop {
+    position: relative;
+    background-color: rgba(69,185,69,0.90);
+    color: white;
+    width: 280px;
+    height: 110px;
+    font-size: 18px;
+    font-weight: bold;
+    letter-spacing: .2em;
+    text-align: center;
+    margin-top: 52px;
+    border-width: 7px;
+    border-radius: 3px;
+    border: 2px solid black;
+    padding: 20px;
+    box-shadow: 2px 2px 4px 5px #D3D3D3;
+}
+
+#find-crop select {
+  border-bottom: 4px solid #b36d00;
+  color: #564e58;
+  width: 140px;
+  height: 35px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+#sellers-table {
+    min-width: 100%;
+    color: #564e58;
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 32px;
+    border-collapse: collapse;
+}
+
+#sellers-table td, #sellers-table th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#sellers-table tr:nth-child(even){background-color: #f2f2f2;}
+
+#sellers-table tr:hover {background-color: #ddd;}
+
+#sellers-table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #4CAF50;
+    color: white;
 }
 
 #map {
-  width: 90%;
+  width: 60%;
   height: 400px;
-  margin: 10% auto;
+  margin: 30px;
   padding: 0;
   border: 0;
   font-size: 100%;
@@ -281,40 +341,13 @@ h1 {
   /* vertical-align: baseline; */
 }
 
-#swap-main {
-    /* justify-content: space-around; */
-    position: relative;
-    background-color: rgba(69,185,69,0.90);
-    color: #564e58;
-    width: 280px;
-    height: 110px;
-    font-size: 18px;
-    font-weight: bold;
-    text-align: center;
-    padding: 20px;
-    margin-left: 65%;
-    /* margin-top: -128px; */
-    border: 9px solid #f4f4f4;
-    border-color: white;
-    border-width: 7px;
-    border-radius: 3px;
+.content p {
+  text-align: center;
+  font-size: 14px;
+  border-bottom: 2px solid #2b3031;
+  font-family: 'Montserrat', sans-serif;
 }
 
-#swap-main select {
-  background: #9bd8d7;
-  border-bottom: 2px solid #b36d00;
-  color: #564e58;
-  width: 248px;
-  height: 35px;
-  font-size: 16px;
-  cursor: pointer;
-}
-
-#sellers-table {
-    min-width: 230px;
-    color: #564e58;
-    font-size: 24px;
-    font-weight: bold;
-    margin-top: 32px;
-    list-style: none;
+.content #neighborhood {
+  font-weight: bold;
 }
