@@ -127,16 +127,16 @@ loadCrops: function(client) {
   },
 
   // function that loads hard coded swap_history data
-//   swap_history: function(client) {
-//     client.query('SELECT COUNT (*) FROM swap_history')
-//     .then(function(result) {
-//       if(!parseInt(result.rows[0].count)) {
-//         client.query(
-//           `INSERT INTO
-//           swap_history (user_id_seller, user_id_buyer, crop_name, crop_price, quantity_reserved, seller_rating)
-//           VALUES ('hoszie', 'johnjohn', 'carrots', 1.50, 4, 5) ON CONFLICT DO NOTHING`
-//         )
-//       }
-//     })
-//   }
-// };
+  // swap_history: function(client) {
+  //   client.query('SELECT COUNT (*) FROM swap_history')
+  //   .then(function(result) {
+  //     if(!parseInt(result.rows[0].count)) {
+  //       client.query(
+  //         `INSERT INTO
+  //         swap_history (user_id_seller, user_id_buyer, crop_name, crop_price, quantity_reserved, seller_rating)
+  //         VALUES ('hoszie', 'johnjohn', 'carrots', 1.50, 4, 5) ON CONFLICT DO NOTHING`
+  //       )
+  //     }
+  //   })
+  // }
+};
