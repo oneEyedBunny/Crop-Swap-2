@@ -1,4 +1,4 @@
-//function that creates all the DB tables & loads data into them
+//function that creates all the DB tables
 module.exports = {
   loadDB: function(client) {
       client.query (`DROP SCHEMA IF EXISTS public CASCADE`);
@@ -55,57 +55,49 @@ module.exports = {
               console.error(error);
           });
   },
-//function that loads hardcoded nieghborhood data
-  loadNeighborhood: function(client) {
-    client.query('SELECT COUNT(*) FROM neighborhood')
-    .then(function(result) {
-      if(!parseInt(result.rows[0].count)) {
-        // fs.readFile('data/neighborhood.json', function(error, fd) {
-        //   JSON.parse(fd.toString()).forEach(function(element) {
-            client.query(
-              `INSERT INTO
-              neighborhood (neighborhood_name, address, swap_day, swap_time)
-              VALUES
-             ('Sellwood', '8300 SE 15th Ave, Portland, OR 97202', 'Saturday', '10AM-2PM'),
-             ('PSU', '1825 SW Broadway, Portland, OR 97201', 'Sunday', '12PM-4PM'),
-             ('The Pearl', '1236 Marshall St, Portland, OR 97209', 'Thursday', '6PM-9PM'),
-             ('Northeast', '2035 NE Alberta St, Portland, OR 97212', 'Monday', '5:30PM-9PM'),
-             ('Southeast', '3203 SE Woodstock Blvd, Portland, OR 97202', 'Saturday', '11AM-1PM')
-              ON CONFLICT DO NOTHING`
-            )
-        //   })
-        // })
-      }
-    })
-  },
-//function that loads hardcoded crop data
-  loadCrops: function(client) {
-    client.query('SELECT COUNT(*) FROM crops')
-    .then(function(result) {
-      if(!parseInt(result.rows[0].count)) {
-        // fs.readFile('data/crops.json', function(error, fd) {
-        //   JSON.parse(fd.toString()).forEach(function(element) {
-            client.query(
-              `INSERT INTO
-              crops(user_id, crop_name, quantity_available, quantity_reserved, crop_price)
-              SELECT user_id,'carrots', 10, 4, 1
-              FROM users
-              WHERE first_name = 'Sandra'
-              ON CONFLICT DO NOTHING;
+//function that loads static nieghborhood data
+loadNeighborhood: function(client) {
+  client.query('SELECT COUNT(*) FROM neighborhood')
+  .then(function(result) {
+    if(!parseInt(result.rows[0].count)) {
+      client.query(
+        `INSERT INTO
+        neighborhood (neighborhood_name, address, swap_day, swap_time)
+        VALUES
+        ('Sellwood', '8300 SE 15th Ave, Portland, OR 97202', 'Saturday', '10AM-2PM'),
+        ('PSU', '1825 SW Broadway, Portland, OR 97201', 'Sunday', '12PM-4PM'),
+        ('The Pearl', '1236 Marshall St, Portland, OR 97209', 'Thursday', '6PM-9PM'),
+        ('Northeast', '2035 NE Alberta St, Portland, OR 97212', 'Monday', '5:30PM-9PM'),
+        ('Southeast', '3203 SE Woodstock Blvd, Portland, OR 97202', 'Saturday', '11AM-1PM')
+        ON CONFLICT DO NOTHING`
+      )
+    }
+  })
+},
+//function that loads demo crop data
+loadCrops: function(client) {
+  client.query('SELECT COUNT(*) FROM crops')
+  .then(function(result) {
+    if(!parseInt(result.rows[0].count)) {
+      client.query(
+        `INSERT INTO
+        crops(user_id, crop_name, quantity_available, quantity_reserved, crop_price)
+        SELECT user_id,'carrots', 10, 4, 1
+        FROM users
+        WHERE first_name = 'Sandra'
+        ON CONFLICT DO NOTHING;
 
-              INSERT INTO
-              crops(user_id, crop_name, quantity_available, quantity_reserved, crop_price)
-              SELECT user_id,'kale', 8, 2, 2
-              FROM users
-              WHERE first_name = 'Nick'
-              ON CONFLICT DO NOTHING;`
-            )
-                    //   })
-        // })
-      }
-    })
-  },
-//function that loads hard coded user data
+        INSERT INTO
+        crops(user_id, crop_name, quantity_available, quantity_reserved, crop_price)
+        SELECT user_id,'kale', 8, 2, 2
+        FROM users
+        WHERE first_name = 'Nick'
+        ON CONFLICT DO NOTHING;`
+      )
+    }
+  })
+},
+//function that loads demo user data
   loadUsers: function(client) {
       client.query('SELECT COUNT (*) FROM users')
       .then(function(result) {
@@ -135,20 +127,16 @@ module.exports = {
   },
 
   // function that loads hard coded swap_history data
-  swap_history: function(client) {
-      client.query('SELECT COUNT (*) FROM swap_history')
-      .then(function(result) {
-          if(!parseInt(result.rows[0].count)) {
-              // fs.readFile('data/swap_history.json', function(err, fd) {
-              //     JSON.parse(fd.toString()).forEach(function(ele) {
-                      client.query(
-                      `INSERT INTO
-                      swap_history (user_id_seller, user_id_buyer, crop_name, crop_price, quantity_reserved, seller_rating)
-                      VALUES ('hoszie', 'johnjohn', 'carrots', 1.50, 4, 5) ON CONFLICT DO NOTHING`
-                      )
-              //     })
-              // })
-          }
-      })
-  }
-};
+//   swap_history: function(client) {
+//     client.query('SELECT COUNT (*) FROM swap_history')
+//     .then(function(result) {
+//       if(!parseInt(result.rows[0].count)) {
+//         client.query(
+//           `INSERT INTO
+//           swap_history (user_id_seller, user_id_buyer, crop_name, crop_price, quantity_reserved, seller_rating)
+//           VALUES ('hoszie', 'johnjohn', 'carrots', 1.50, 4, 5) ON CONFLICT DO NOTHING`
+//         )
+//       }
+//     })
+//   }
+// };
