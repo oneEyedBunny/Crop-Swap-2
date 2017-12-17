@@ -55,6 +55,7 @@ module.exports = {
   //             console.error(error);
   //         });
   },
+  
 //function that loads static nieghborhood data
 loadNeighborhood: function(client) {
   client.query('SELECT COUNT(*) FROM neighborhood')
