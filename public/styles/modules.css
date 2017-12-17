@@ -121,6 +121,7 @@ header li:hover {
 
 fieldset {
   background-color: rgba(69,185,69,0.90);
+}
 
 .error-message {
   font-size: 25px;
