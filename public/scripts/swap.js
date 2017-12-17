@@ -4,6 +4,7 @@ var map;
 var marker;
 var markers = [];
 
+//Function to initialize the map
 function initMap() {
   var portland = {lat: 45.5231, lng: -122.6765};
 
@@ -13,7 +14,7 @@ function initMap() {
   })
 };
 
-
+//Function to loop through the crop array
 function populateCrops() {
 $.get('/crops').then(function(cropData) {
   console.log(cropData);
@@ -40,7 +41,7 @@ function handleCrops() {
     $.get(`/crop-sellers/${selectedCrop}`).then(function(sellers) {
       console.log(sellers);
       var $tbody = $('#sellers-table tbody');
-      $tbody.html('');
+      $tbody.html(''); //Clears the table
 
       sellers.forEach(function (seller) {
       $tbody.append(`
@@ -94,7 +95,6 @@ function addMarker(location) {
     }
   });
 }
-
 
 //Functions to delete markers from map if user selects a different crop
 function setMapOnAll(map) {

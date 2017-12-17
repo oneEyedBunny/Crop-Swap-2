@@ -41,20 +41,21 @@ module.exports = {
               console.error(error);
           });
 
-      // client.query (`
-      //     CREATE TABLE IF NOT EXISTS swap_history (
-      //         swap_history_id SERIAL PRIMARY KEY,
-      //         user_id_seller TEXT,
-      //         user_id_buyer TEXT,
-      //         crop_name TEXT,
-      //         crop_price INTEGER,
-      //         quantity_reserved INTEGER,
-      //         seller_rating INTEGER);`
-      //     )
-      //     .catch(function(error) {
-      //         console.error(error);
-      //     });
+  //     client.query (`
+  //         CREATE TABLE IF NOT EXISTS swap_history (
+  //             swap_history_id SERIAL PRIMARY KEY,
+  //             user_id_seller TEXT,
+  //             user_id_buyer TEXT,
+  //             crop_name TEXT,
+  //             crop_price INTEGER,
+  //             quantity_reserved INTEGER,
+  //             seller_rating INTEGER);`
+  //         )
+  //         .catch(function(error) {
+  //             console.error(error);
+  //         });
   },
+  
 //function that loads static nieghborhood data
 loadNeighborhood: function(client) {
   client.query('SELECT COUNT(*) FROM neighborhood')
