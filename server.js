@@ -19,6 +19,7 @@ app.listen(PORT, function() {
   console.log(`Listening on port: ${PORT}`);
 });
 
+//function calls to create data in tables
 dbutilities.loadDB(client);
 dbutilities.loadNeighborhood(client);
 dbutilities.loadUsers(client);
@@ -35,13 +36,13 @@ app.get('/', function(request, response) {
 
 // DB routes for CRUD operations
 app.get('/neighborhoods', function(request, response) {
-  client.query('SELECT * FROM neighborhood;')
-  .then(function(data) {
-    response.send(data.rows)
-  })
-  .catch(function(err) {
-    console.error(err)
-  })
+client.query('SELECT * FROM neighborhood;')
+.then(function(data) {
+  response.send(data.rows)
+})
+.catch(function(err) {
+  console.error(err)
+})
 });
 
 app.get('/user', function(request, response) {
@@ -111,7 +112,7 @@ app.post('/user', function(request, response) {
   .then(function(data) {
     console.log("new id", data.rows[0].user_id.toString());
     response.status(200).send(data.rows[0]);
-
+    
   })
   .catch(function(err) {
     console.error(err)
@@ -157,7 +158,7 @@ app.get('/crops/:user', function (request, response) {
 
 app.get('/crop-sellers/:crop', function (request, response) {
   client.query(`
-    SELECT users.first_name, users.last_name, crops.quantity_available, crops.crop_price, neighborhood.address
+    SELECT users.first_name, users.last_name, crops.crop_name, crops.quantity_available, crops.crop_price, neighborhood.address
     FROM crops
     INNER JOIN users ON crops.user_id = users.user_id
     INNER JOIN neighborhood ON users.neighborhood_id = neighborhood.neighborhood_id
