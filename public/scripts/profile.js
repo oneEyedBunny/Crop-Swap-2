@@ -9,10 +9,6 @@ var theTemplate = Handlebars.compile(theTemplateScript);
 $('#new-crop').submit(function(event) {
   event.preventDefault();
 
-  
-  // $('#user-produce').append(`${event.target.crop.value}, with a quantity of ${event.target.quantity.value}, at a price of $${event.target.crop_price.value}.<br> `);
-  
-
   let data = {
     user_id: currentUser.user_id,
     crop_name: $('#crop').val(),
@@ -20,15 +16,13 @@ $('#new-crop').submit(function(event) {
     quantity_reserved: 0,
     crop_price: event.target.crop_price.value
   }
- 
-  
+
   $.post('/crops', data)
   .then(function() {
     $.get(`/crops/${currentUser.user_id}`)
     .then(function(data) {
-      var index = data.length -1;
-      console.log(data);
-      var theCompiledHtml = theTemplate(data[index]);
+      let index = data.length -1;
+      let theCompiledHtml = theTemplate(data[index]);
       $('#table').before(`<tr>${theCompiledHtml}</tr>`);
     })
   });
@@ -39,8 +33,6 @@ function profilePopulate() {
   let nbhd = neighborhoods.find(function(neighborhood) {
     return(neighborhood.neighborhood_id == currentUser.neighborhood_id);
   });
-
-  console.log('nbhd',nbhd.neighborhood_name);
 
   $('<form>').fadeIn().appendTo('#profile-container').attr('id', 'profile-form');
   $('<fieldset>').appendTo('#profile-form').attr('id', 'profile-fieldset');
@@ -59,12 +51,9 @@ function profilePopulate() {
 ///   GETTING NEIGHBORHOODS FROM DB   ///
 $(document).ready(function() {
   $.get('/neighborhoods').then(function(neighborhoodList) {
-    console.log(neighborhoodList);
     neighborhoods= neighborhoodList;
 
-    // }).then(function() {
       profilePopulate();
-
   })
 
   $.get(`/crops/${currentUser.user_id}`)
@@ -88,5 +77,4 @@ function removeCrop (id) {
   })
 }
 
-})
 
