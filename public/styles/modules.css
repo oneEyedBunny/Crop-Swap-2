@@ -102,6 +102,21 @@ header li:hover {
   padding:20px;
   box-shadow:2px 2px 4px 5px #D3D3D3;
   background-color: rgba(69,185,69,0.90);
+  font-size: 20px;
+}
+
+#login-user  {
+  border: 2px solid black;
+  padding:20px;
+  box-shadow:2px 2px 4px 5px #D3D3D3;
+  background-color: rgba(69,185,69,0.90);
+  font-size: 20px;
+}
+
+#login-user input[type="button"] {
+  width: 35%;
+  display: block; /*this and below allow button to be centered */
+  margin: 0 auto;
 }
 
 fieldset {
@@ -123,7 +138,7 @@ fieldset {
 
 /*the actual form that lets a user create a profile*/
 #new-user-info{
-  font-size: 15px;
+  font-size: 18px;
   position: relative;
   width:350px;
   -webkit-animation: fadein 3s; /* Safari, Chrome and Opera > 12.1 */
@@ -154,7 +169,7 @@ fieldset {
 .new-profile-submit-button {
   display: block;
   margin: 10% auto;
-  font-size: 15px;
+  font-size: 18px;
 }
 
 @keyframes fadein {
@@ -243,11 +258,12 @@ legend {
   font-size: 1.563em;
 }
 
-form input[type="text"] {
+/* This is impacting other pages, give it a class or id  */
+/* form input[type="text"] {
   font-size: 1.25em;
   width: 35%;
   display: inline-block
-}
+} */
 
 #submit {
   text-align: center;
