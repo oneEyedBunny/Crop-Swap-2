@@ -121,7 +121,6 @@ header li:hover {
 
 fieldset {
   background-color: rgba(69,185,69,0.90);
-  
 }
 
 /*the button that triggers the new user form below*/
@@ -267,6 +266,7 @@ legend {
 form input[type="text"] {
   font-size: 1.1em;
   text-align: center;
+}
 
 #submit {
   text-align: center;
