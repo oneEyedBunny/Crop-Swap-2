@@ -28,7 +28,7 @@ header li:hover {
   opacity: 1;
   background-color: #EBA15A;
   transition: all 0.25s;
-  color: #0D4054;;
+  color: #0D4054;
 }
 
 /* header li:visited {
@@ -247,7 +247,8 @@ font-size: 20px;
 
 #user-produce {
   font-size: 20px;
-  }
+  text-align: center;
+}
 
 #produce-table {
   margin-left: 1px;
@@ -256,7 +257,7 @@ font-size: 20px;
   font-size: 15px;
 }
 
-input[type=number] {
+input[type="number"] {
   text-align: center;
 }
 
@@ -271,6 +272,7 @@ legend {
 form input[type="text"] {
   font-size: 1.1em;
   text-align: center;
+}
 
 #submit {
   text-align: center;
@@ -303,11 +305,6 @@ form fieldset {
 .crop-input-div label {
   margin: 0 auto;
 }
-
-#user-produce {
-  text-align: center;
-}
-
 
 
 
