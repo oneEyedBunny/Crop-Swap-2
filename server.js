@@ -65,15 +65,15 @@ app.get('/crops', function(request, response) {
   })
 });
 
-app.get('/swap_history', function(request, response) {
-  client.query('SELECT * FROM swap_history;')
-  .then(function(data) {
-    response.send(data.rows)
-  })
-  .catch(function(err) {
-    console.error(err)
-  })
-})
+// app.get('/swap_history', function(request, response) {
+//   client.query('SELECT * FROM swap_history;')
+//   .then(function(data) {
+//     response.send(data.rows)
+//   })
+//   .catch(function(err) {
+//     console.error(err)
+//   })
+// })
 
 app.post('/crops', function(request, response) {
   client.query(
@@ -112,7 +112,7 @@ app.post('/user', function(request, response) {
   .then(function(data) {
     console.log("new id", data.rows[0].user_id.toString());
     response.status(200).send(data.rows[0]);
-    
+
   })
   .catch(function(err) {
     console.error(err)

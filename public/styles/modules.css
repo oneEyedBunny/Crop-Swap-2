@@ -269,7 +269,7 @@ legend {
   font-size: 1.563em;
 }
 
-form input[type="text"] {
+#new-crop input[type="text"] {
   font-size: 1.1em;
   text-align: center;
 }
