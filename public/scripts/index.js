@@ -83,7 +83,7 @@ function loginUser() {
     }
   );
   if(!userMatch) {
-    $('<p>').appendTo('#profile-forms').html("We could not find an account. Please create one here -----> ");
+    $('<p>').appendTo('#profile-forms').addClass('error-message').html("We could not find an account. Please create one here -----> ");
     createAccountForm ();
   } else {
     localStorage.setItem("currentUserKey", JSON.stringify(userMatch));
