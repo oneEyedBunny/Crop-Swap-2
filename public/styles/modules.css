@@ -106,6 +106,7 @@ header li:hover {
 
 fieldset {
   background-color: rgba(69,185,69,0.90);
+  
 }
 
 /*the button that triggers the new user form below*/
@@ -186,6 +187,7 @@ font-size: 45px;
   font-size: 22px;
   padding-top: 30px;
   color: #564E58;
+  margin-top:-35px;
 }
 
 .profile-div, .crop-input-div {
@@ -208,7 +210,7 @@ font-size: 20px;
   margin-left: 50px;
   border: 2px solid #032559;
   background-color: rgba(69,185,69,0.75);
-
+  max-height: 310px;
 }
 
 #profile-container img {
@@ -229,10 +231,14 @@ font-size: 20px;
   }
 
 #produce-table {
-  margin-left: 175px;
+  margin-left: 1px;
 }
 #drop-produce {
   font-size: 15px;
+}
+
+input[type=number] {
+  text-align: center;
 }
 
 /* ////////////      CROP FORM      //////// */
@@ -244,14 +250,15 @@ legend {
 }
 
 form input[type="text"] {
-  font-size: 1.25em;
-  width: 35%;
+  font-size: 1.1em;
+  text-align: center;
   display: inline-block
 }
 
 #submit {
   text-align: center;
   margin-top: 5%;
+  margin: 0 auto;
 }
 
 form fieldset {
@@ -261,6 +268,31 @@ form fieldset {
 h1 {
   text-align: center;
 }
+
+#new-crop {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  margin-left: 50px;
+  margin-right:50px;
+  border: 2px solid #032559;
+  background-color: rgba(69,185,69,0.75);
+}
+
+.crop-input-div {
+  margin: 0 auto;
+}
+
+.crop-input-div label {
+  margin: 0 auto;
+}
+
+#user-produce {
+  text-align: center;
+}
+
+
+
 
 /* ////////////      SWAP PAGE    //////// */
 
