@@ -42,7 +42,7 @@ function createAccountForm() {
   $('<label>').appendTo('.new-user-div').html("User Name: ");
   $('<input>').appendTo('.new-user-div').attr("name", "userName");
   $('<label>').appendTo('.new-user-div').html("Password: ");
-  $('<input>').appendTo('.new-user-div').attr("name", "password");
+  $('<input>').appendTo('.new-user-div').attr("name", "password").attr("type","password");
 
   let $newFormButton=$('<input>').attr({
     type: "button",

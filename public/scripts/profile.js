@@ -10,7 +10,7 @@ $('#new-crop').submit(function(event) {
   event.preventDefault();
 
   let data = {
-    user_id: currentUser.user_id,
+    user_id: currentUser.id,
     crop_name: $('#crop').val(),
     quantity_available: event.target.quantity.value,
     quantity_reserved: 0,
@@ -19,7 +19,7 @@ $('#new-crop').submit(function(event) {
 
   $.post('/crops', data)
   .then(function() {
-    $.get(`/crops/${currentUser.user_id}`)
+    $.get(`/crops/${currentUser.id}`)
     .then(function(data) {
       let index = data.length -1;
       let theCompiledHtml = theTemplate(data[index]);
@@ -56,9 +56,9 @@ $(document).ready(function() {
       profilePopulate();
   })
 
-  $.get(`/crops/${currentUser.user_id}`)
+  $.get(`/crops/${currentUser.id}`)
   .then(function(data) {
-    
+
     data.forEach(function(item) {
       var theCompiledHtml = theTemplate(item);
       $('#table').before(`<tr>${theCompiledHtml}</tr>`);
@@ -70,11 +70,9 @@ function removeCrop (id) {
   $.ajax({
     url:`/crops/${id}`,
     type: 'DELETE'})
-    
+
   .then(function(response) {
     console.log(response);
     $(`#crop-id${id}`).remove();
   })
 }
-
-
